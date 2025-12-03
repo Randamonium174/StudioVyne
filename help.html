@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StudioVyne — Help</title>
+
+<!-- Fonts + GSAP -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+:root {
+  --max: 1320px;
+  --nav-h: 84px;
+  --accent: linear-gradient(135deg,#ff66c1,#ff9ab0 40%,#ffd18c 80%);
+  --glass: rgba(255,255,255,0.04);
+  --bg: #000;
+}
+
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; scroll-behavior: smooth; }
+body {
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav-wrap { position: fixed; top: 18px; left: 0; right: 0; display: flex; justify-content: center; z-index: 1000; }
+.nav {
+  width: 94%; max-width: var(--max); height: 72px; border-radius: 16px;
+  background: rgba(255,255,255,0.06); backdrop-filter: blur(14px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 26px; box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+.brand-wrap { display: flex; align-items: center; gap: 12px; }
+.brand-logo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.brand {
+  font-family: 'Space Grotesk'; font-weight: 800;
+  background: var(--accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  font-size: 1.15rem;
+}
+nav.primary { display: flex; gap: 34px; align-items: center; position: relative; }
+nav.primary a {
+  position: relative;
+  color: white; text-decoration: none; font-family: 'Space Grotesk';
+  font-weight: 700; font-size: 16px; padding: 6px 4px;
+  transition: transform .3s ease, opacity .3s ease;
+}
+nav.primary a:hover { transform: translateY(-2px); opacity: 1; }
+nav.primary a::after {
+  content: ""; position: absolute; bottom: -6px; left: 0;
+  height: 3px; width: 0%; border-radius: 4px;
+  background: linear-gradient(90deg,#ff66c1,#ffd18c);
+  box-shadow: 0 0 10px rgba(255,190,160,0.5);
+  transition: width .35s ease;
+}
+nav.primary a:hover::after { width: 100%; }
+
+/* MAIN */
+main { padding-top: calc(var(--nav-h) + 24px); }
+
+/* HERO */
+.hero {
+  min-height: 80vh; display: flex; align-items: center; justify-content: center;
+  background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2200&q=80') center/cover no-repeat;
+  position: relative; text-align: center;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(120deg,rgba(0,0,0,0.6),rgba(0,0,0,0.45));
+}
+.hero-inner { position: relative; z-index: 2; max-width: 920px; padding: 0 20px; }
+.hero h1 {
+  font-family: 'Space Grotesk'; font-weight: 800; font-size: clamp(2.4rem,5vw,3.6rem);
+  margin-bottom: 14px; background: var(--accent);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p { font-size: 1.1rem; line-height: 1.75; letter-spacing: 0.3px; }
+
+/* SECTION */
+.section { max-width: var(--max); margin: 0 auto; padding: 92px 20px; text-align: center; }
+.title {
+  font-family: 'Space Grotesk'; font-weight: 800; font-size: 2.5rem;
+  background: var(--accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 10px; opacity: 0; transform: translateY(30px);
+}
+.desc {
+  max-width: 760px; margin: 0 auto 40px;
+  font-size: 1.05rem; line-height: 1.75; letter-spacing: 0.3px; word-spacing: 2px;
+  opacity: 0; transform: translateY(20px);
+}
+
+/* CARDS */
+.cards {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 28px; justify-items: center;
+}
+.card {
+  background: rgba(255,255,255,0.03); border-radius: 18px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  opacity: 0; transform: translateY(30px);
+  transition: box-shadow .4s ease;
+}
+.card:hover { box-shadow: 0 0 40px rgba(255,190,160,0.4),0 0 80px rgba(255,140,200,0.3); }
+.media { width: 100%; aspect-ratio: 16/10; overflow: hidden; }
+.media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1s ease;
+}
+.card:hover .media img { transform: scale(1.06); }
+.body { padding: 20px 20px 28px; }
+.title-sub {
+  font-family: 'Space Grotesk'; font-weight: 800; font-size: 1.15rem;
+  background: var(--accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.kicker { font-size: 0.96rem; line-height: 1.7; opacity: 0.9; letter-spacing: 0.2px; word-spacing: 1.5px; }
+
+/* SEPARATOR + FOOTER */
+.sep { height: 2px; width: 100%; max-width: var(--max); margin: 60px auto;
+  background: linear-gradient(90deg,#0000,#ff66c1 20%,#ffd18c 80%,#0000); opacity: 0.08; }
+footer { padding: 40px 20px; text-align: center; color: rgba(255,255,255,0.85); font-size: 0.95rem; background: #000; }
+
+@media (max-width: 980px) {
+  .hero { min-height: 60vh; }
+}
+</style>
+</head>
+
+<body>
+<div class="nav-wrap">
+  <header class="nav">
+    <div class="brand-wrap">
+      <img src="studiologo.png" alt="StudioVyne Logo" class="brand-logo">
+      <div class="brand">StudioVyne</div>
+    </div>
+    <nav class="primary">
+      <a href="landing.html">HOME</a>
+      
+      <a href="contact.html">CONTACT</a>
+    </nav>
+  </header>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>How We Help You Build Better Stories</h1>
+      <p>StudioVyne’s creative framework — built for clarity, connection, and conversion.</p>
+    </div>
+  </section>
+
+  <!-- OUR APPROACH -->
+  <section class="section">
+    <div class="title">Our Approach</div>
+    <div class="desc">We combine discovery, strategy, and execution — producing work that is thoughtful, purposeful, and made to last.</div>
+    <div class="cards">
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1757553358799-900b78f19844?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"></div><div class="body"><div class="title-sub">Discovery & Research</div><div class="kicker">In-depth research to uncover the right opportunities and insights.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1758873272414-c0bf30332738?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2064"></div><div class="body"><div class="title-sub">Creative Strategy</div><div class="kicker">Aligning business goals with human-centered concepts and visuals.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Execution Excellence</div><div class="kicker">Precise craft across design, motion, and production pipelines.</div></div></article>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- WHAT WE BRING -->
+  <section class="section">
+    <div class="title">What We Bring</div>
+    <div class="desc">A mix of craft, clarity and motion — translated into systems, experiences and visuals that elevate your presence.</div>
+    <div class="cards">
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Brand Identity</div><div class="kicker">Design systems, marks and visual language that feel original.</div></div></article>
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1663091696773-ae012087b421?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"></div><div class="body"><div class="title-sub">Digital Experience</div><div class="kicker">Interfaces and product flows that are intuitive and memorable.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Visual Design</div><div class="kicker">Art direction and imagery that sharpen your message.</div></div></article>
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1723489254801-ebec5f249c05?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1160"></div><div class="body"><div class="title-sub">Motion & Storytelling</div><div class="kicker">Sequencing, loops and transitions that amplify brand emotion.</div></div></article>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- HOW IT IMPACTS YOU -->
+  <section class="section">
+    <div class="title">How It Impacts You</div>
+    <div class="desc">Even as a young studio, our work aims to create clarity, spark recognition, and build emotional connection — all focused on your future growth.</div>
+    <div class="cards">
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Engagement</div><div class="kicker">Design that invites attention and keeps people listening.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1706193589333-da530df63ecf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"></div><div class="body"><div class="title-sub">Recognition</div><div class="kicker">Visual systems that make your brand easier to recall.</div></div></article>
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1693166985133-8a849aa237de?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2064"></div><div class="body"><div class="title-sub">Emotional Impact</div><div class="kicker">Story-led visuals that move people and create loyalty.</div></div></article>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- THE VISION REALIZED -->
+  <section class="section">
+    <div class="title">The Vision Realized</div>
+    <div class="desc">In the end you get a coherent brand system, a visual language and digital experiences designed to perform and inspire.</div>
+    <div class="cards">
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1672759362274-bb02b3645cb8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1857"></div><div class="body"><div class="title-sub">Creative Launch</div><div class="kicker">A structured rollout that introduces your new identity with momentum.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Digital Growth</div><div class="kicker">Measured digital improvements that help your audience find and trust you.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1563674881-8abcee2b556a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"></div><div class="body"><div class="title-sub">Visual Legacy</div><div class="kicker">A lasting visual system that scales across channels.</div></div></article>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- OUR PACKAGES -->
+  <section class="section">
+    <div class="title">Our Packages</div>
+    <div class="desc">Four clear paths — from personalised kickstart to long-term partnership. Each package is tailored with practical deliverables and creative direction.</div>
+    <div class="cards">
+      <article class="card"><div class="media"><img src="https://plus.unsplash.com/premium_photo-1683133556035-403d392ef900?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1740"></div><div class="body"><div class="title-sub">Personalised</div><div class="kicker">Made-for-you starter pack: brand mark, colors, and tone essentials.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Curated</div><div class="kicker">A refined set of visuals and a concise style system for multi-channel use.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Essence</div><div class="kicker">Complete visual identity including assets, templates, and motion guidelines.</div></div></article>
+      <article class="card"><div class="media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80"></div><div class="body"><div class="title-sub">Vyne Signature</div><div class="kicker">Ongoing partnership: campaigns, growth creative, and continuous refinement.</div></div></article>
+    </div>
+  </section>
+
+  <footer id="contact">© 2025 StudioVyne — Crafted with care</footer>
+</main>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Animate section titles + descriptions (fade + slide up)
+  gsap.utils.toArray(".section").forEach(section => {
+    const title = section.querySelector(".title");
+    const desc = section.querySelector(".desc");
+    if (title && desc) {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          once: true
+        }
+      })
+      .to(title, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      })
+      .to(desc, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      }, "-=0.5");
+    }
+  });
+  
+  // Animate cards fade in + upward stagger
+  gsap.utils.toArray(".cards").forEach(container => {
+    const cards = container.querySelectorAll(".card");
+    gsap.fromTo(cards,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: container,
+          start: "top 80%",
+          once: true
+        }
+      }
+    );
+  });
+  
+  // Subtle parallax effect for card images
+  gsap.utils.toArray(".media img").forEach(img => {
+    gsap.fromTo(img, { scale: 1.1 }, {
+      scale: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: img.closest(".card"),
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+  });
+  </script>
+  </body>
+  </html>
+  

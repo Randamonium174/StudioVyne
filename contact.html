@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StudioVyne — Contact </title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<style>
+:root {
+  --max: 1280px;
+  --accent: linear-gradient(135deg,#ff66c1,#ff9ab0 40%,#ffd18c 80%);
+  --bg: #000;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;scroll-behavior:smooth;}
+body{
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* NAV */
+.nav-wrap{position:fixed;top:18px;left:0;right:0;display:flex;justify-content:center;z-index:1000;}
+.nav{
+  width:94%;max-width:var(--max);height:72px;border-radius:16px;
+  background:rgba(255,255,255,0.06);backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 26px;box-shadow:0 20px 60px rgba(0,0,0,0.55);
+}
+.brand-wrap{display:flex;align-items:center;gap:12px;}
+.brand-logo{width:48px;height:48px;border-radius:50%;object-fit:cover;}
+.brand{
+  font-family:'Space Grotesk';font-weight:800;
+  background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-size:1.15rem;
+}
+nav.primary{display:flex;gap:34px;align-items:center;}
+nav.primary a{
+  position:relative;color:white;text-decoration:none;font-family:'Space Grotesk';
+  font-weight:700;font-size:16px;padding:6px 4px;
+  transition:transform .3s ease,opacity .3s ease;
+}
+nav.primary a::after{
+  content:"";position:absolute;bottom:-6px;left:0;height:3px;width:0%;
+  border-radius:4px;background:linear-gradient(90deg,#ff66c1,#ffd18c);
+  box-shadow:0 0 10px rgba(255,190,160,0.5);
+  transition:width .35s ease;
+}
+nav.primary a:hover::after{width:100%;}
+nav.primary a:hover{transform:translateY(-2px);}
+
+/* HERO */
+.hero{
+  min-height:70vh;display:flex;align-items:center;justify-content:center;
+  background:url('https://images.unsplash.com/photo-1760784879929-eb7ea4ee6958?ixlib=rb-4.1.0&auto=format&fit=crop&w=1740&q=80') center/cover no-repeat;
+  position:relative;text-align:center;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,rgba(0,0,0,0.65),rgba(0,0,0,0.45));
+}
+.hero-inner{position:relative;z-index:2;max-width:860px;padding:0 20px;}
+.hero h1{
+  font-family:'Space Grotesk';font-weight:800;
+  font-size:clamp(2.4rem,5vw,3.6rem);
+  background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:14px;
+}
+.hero p{font-size:1.1rem;line-height:1.75;letter-spacing:0.3px;margin-bottom:24px;}
+.down-symbol{
+  font-size:1.6rem;opacity:0.8;animation:bob 1.6s infinite ease-in-out;cursor:pointer;
+}
+@keyframes bob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(6px);}
+}
+
+/* SECTION */
+.section{max-width:var(--max);margin:0 auto;padding:100px 20px;}
+.title{
+  font-family:'Space Grotesk';font-weight:800;font-size:2.5rem;text-align:center;
+  background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:14px;opacity:0;transform:translateY(30px);
+}
+.desc{
+  max-width:760px;margin:0 auto 60px;text-align:center;
+  font-size:1.05rem;line-height:1.75;opacity:0;transform:translateY(20px);
+}
+
+/* GRID */
+.cards{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  grid-auto-flow:dense;
+  gap:22px;
+}
+.card{
+  position:relative;
+  background:rgba(255,255,255,0.03);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  overflow:hidden;
+  opacity:0;transform:translateY(40px);
+  transition:box-shadow .4s ease,transform .35s ease;
+  padding:24px;
+}
+.card::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  padding:1px;background:linear-gradient(135deg,#ff66c1,#ffd18c);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+.card:hover{
+  box-shadow:0 0 40px rgba(255,190,160,0.35),0 0 60px rgba(255,140,200,0.2);
+  transform:translateY(-5px);
+}
+.card:nth-child(1){grid-row:span 1;grid-column:span 2;}
+.card:nth-child(2){grid-row:span 2;}
+.card:nth-child(3){grid-row:span 1;}
+.card:nth-child(4){grid-row:span 1;grid-column:span 2;}
+.card:nth-child(5){grid-row:span 1;}
+
+/* CARD TEXT */
+.title-sub{
+  font-family:'Space Grotesk';font-weight:800;font-size:1.25rem;
+  background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.kicker{font-size:1rem;line-height:1.7;opacity:0.9;}
+
+/* BUTTON */
+.btn{
+  display:inline-block;padding:11px 18px;border-radius:10px;
+  position:relative;overflow:hidden;
+  border:2px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.05);
+  color:#fff;font-weight:600;text-decoration:none;
+  backdrop-filter:blur(6px);
+  transition:transform .25s ease,color .3s ease;
+}
+.btn::before{
+  content:"";position:absolute;inset:0;
+  background:var(--accent);transform:scaleX(0);
+  transform-origin:left;transition:transform 0.5s ease;
+  z-index:-1;border-radius:inherit;
+}
+.btn:hover::before{transform:scaleX(1);}
+.btn:hover{transform:scale(1.03);color:#fff;}
+
+/* EMAIL FORM POPUP */
+.overlay{
+  position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+  background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);
+  z-index:2000;
+}
+.form-popup{
+  background:rgba(255,255,255,0.05);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 50px rgba(0,0,0,0.6);
+  padding:32px 28px;
+  width:95%;max-width:420px;
+  position:relative;
+  animation:fadeIn .3s ease;
+}
+.form-popup h2{
+  font-family:'Space Grotesk';font-weight:800;
+  background:var(--accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:20px;text-align:center;
+}
+.form-popup input,.form-popup textarea{
+  width:100%;padding:12px 14px;margin-bottom:14px;
+  border:none;border-radius:10px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;font-family:Inter;font-size:0.95rem;
+  outline:none;
+}
+.form-popup textarea{height:110px;resize:none;}
+.form-popup button{
+  width:100%;padding:12px 16px;
+  border:none;border-radius:10px;
+  font-weight:700;color:#fff;
+  background:transparent;
+  border:2px solid rgba(255,255,255,0.1);
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.form-popup button::before{
+  content:"";position:absolute;inset:0;
+  background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+  z-index:-1;border-radius:inherit;
+}
+.form-popup button:hover::before{transform:scaleX(1);}
+.form-popup button:hover{transform:scale(1.03);}
+.close-btn{
+  position:absolute;top:12px;right:16px;font-size:1.3rem;cursor:pointer;opacity:0.8;
+}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+
+footer{padding:40px 20px;text-align:center;color:rgba(255,255,255,0.85);font-size:0.95rem;}
+</style>
+
+<body>
+<div class="nav-wrap">
+  <header class="nav">
+    <div class="brand-wrap">
+      <img src="studiologo.png" alt="StudioVyne Logo" class="brand-logo">
+      <div class="brand">StudioVyne</div>
+    </div>
+    <nav class="primary">
+      <a href="landing.html">HOME</a>
+      <a href="help.html" class="active">HELP</a>
+    </nav>
+  </header>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Let's Connect</h1>
+      <p>Reach out, collaborate, and craft something timeless with StudioVyne.</p>
+      <div class="down-symbol" onclick="document.querySelector('.section').scrollIntoView({behavior:'smooth'})">↓</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title">Get In Touch</div>
+    <div class="desc">We’re here to listen, discuss, and create — from ideas to strategy to final delivery.</div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="title-sub">Mail Us</div>
+        <div class="kicker">For inquiries and collaborations — we usually respond within a day.<br><br><a class="btn" id="openMailForm">Send Mail</a></div>
+      </article>
+
+      <article class="card">
+        <div class="title-sub">Chat on WhatsApp</div>
+        <div class="kicker">Connect directly with a StudioVyne team member.<br><br><a class="btn" id="chatNow">Chat Now</a></div>
+      </article>
+
+      <article class="card">
+        <div class="title-sub">Reach Us</div>
+        <div class="kicker"><strong>Email:</strong> hello@studiovyne.com<br><strong>Phone:</strong> +91 00000 00000<br><strong>Location:</strong> India</div>
+      </article>
+
+      <article class="card">
+        <div class="title-sub">Ready to Begin?</div>
+        <div class="kicker">Explore our range of creative and strategy services — from branding to digital experience design.<br><br><a class="btn" href="landing.html#services">See Services </a></div>
+      </article>
+
+      <article class="card">
+        <div class="title-sub">Follow Us</div>
+        <div class="kicker">Stay updated with our latest stories.<br><br>Instagram · LinkedIn · Behance</div>
+      </article>
+    </div>
+  </section>
+
+  <footer>© 2025 StudioVyne — Crafted with care</footer>
+</main>
+
+<!-- EMAIL FORM POPUP -->
+<div class="overlay" id="formOverlay">
+  <div class="form-popup" id="mailForm">
+    <div class="close-btn" id="closeForm">×</div>
+    <h2>Send us a Message</h2>
+    <form id="contactForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      <textarea id="message" name="message" placeholder="Tell us what you want to enquire..." required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+emailjs.init("pHf4VY7iCqzN-DF4u"); // Replace with your EmailJS public key
+
+document.getElementById("openMailForm").addEventListener("click", ()=>{
+  document.getElementById("formOverlay").style.display="flex";
+});
+document.getElementById("closeForm").addEventListener("click", ()=>{
+  document.getElementById("formOverlay").style.display="none";
+});
+document.getElementById("formOverlay").addEventListener("click", e=>{
+  if(e.target===document.getElementById("formOverlay"))
+    document.getElementById("formOverlay").style.display="none";
+});
+
+document.getElementById("contactForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  emailjs.send("service_40nob1a","template_ey58ghs",{
+    from_name:document.getElementById("name").value,
+    from_email:document.getElementById("email").value,
+    message:document.getElementById("message").value
+  }).then(()=>{
+    alert("Message sent successfully!");
+    document.getElementById("formOverlay").style.display="none";
+    this.reset();
+  }).catch(()=>{
+    alert("Failed to send message, please try again.");
+  });
+});
+
+// WhatsApp API
+document.getElementById("chatNow").addEventListener("click",()=>{
+  const phone="910000000000"; // Replace with real WhatsApp number
+  const msg=encodeURIComponent("Hi StudioVyne! I'm interested in your services.");
+  window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
+});
+
+// Animations
+gsap.registerPlugin(ScrollTrigger);
+gsap.from(".hero-inner",{y:40,opacity:0,duration:1,ease:"power3.out"});
+gsap.utils.toArray(".section").forEach(section=>{
+  const t=section.querySelector(".title"),d=section.querySelector(".desc");
+  if(t&&d){
+    gsap.timeline({scrollTrigger:{trigger:section,start:"top 80%",once:true}})
+    .to(t,{y:0,opacity:1,duration:0.8,ease:"power3.out"})
+    .to(d,{y:0,opacity:1,duration:0.8,ease:"power3.out"},"-=0.5");
+  }
+});
+gsap.utils.toArray(".cards").forEach(container=>{
+  const cards=container.querySelectorAll(".card");
+  gsap.fromTo(cards,{opacity:0,y:40},{opacity:1,y:0,duration:1,stagger:0.2,ease:"power3.out",
+    scrollTrigger:{trigger:container,start:"top 85%",once:true}});
+});
+</script>
+</body>
+</html>
