@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StudioVyne — Services</title>
+
+<!-- Fonts + GSAP -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+/* ---------------------------------------------------
+   GLOBAL VARIABLES
+------------------------------------------------------ */
+:root{
+  --max:1320px;
+  --nav-h:72px;
+  --accent-grad: linear-gradient(135deg,#ff66c1,#ff9ab0 40%,#ffd18c 80%);
+  --champagne: #F2E8DA;
+  --glass: rgba(255,255,255,0.06);
+  --card-glass: rgba(255,255,255,0.5);
+  --muted: #5b534d;
+  --radius:16px;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;scroll-behavior:smooth}
+body{
+  font-family:Inter, sans-serif;
+  background:var(--champagne);
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+a{text-decoration:none;color:inherit}
+
+/* ---------------------------------------------------
+   NAV BAR
+------------------------------------------------------ */
+.nav-wrap{
+  position:fixed;top:18px;left:0;right:0;
+  display:flex;justify-content:center;
+  z-index:2000;
+}
+.nav{
+  width:94%;max-width:var(--max);height:var(--nav-h);
+  background:rgba(255,255,255,0.55);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 26px;border-radius:18px;
+  box-shadow:0 18px 48px rgba(10,10,10,0.06);
+  position:relative;
+}
+
+/* Brand */
+.brand-wrap{display:flex;align-items:center;gap:12px}
+.brand-logo{width:48px;height:48px;border-radius:50%;background:#fff;object-fit:cover}
+.brand{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:1.06rem;
+}
+
+/* Desktop Links */
+nav.primary{
+  display:flex;gap:34px;align-items:center;position:relative;
+}
+nav.primary a{
+  font-family:'Space Grotesk';
+  font-weight:700;
+  color:#111;
+  padding:6px 4px;
+  position:relative;
+}
+
+/* UNDERLINE: hover-only */
+.underline-bar{
+  position:absolute;
+  bottom:6px;
+  height:4px;
+  width:0;
+  opacity:0;
+  border-radius:6px;
+  background: linear-gradient(90deg,#ff66c1,#ffd18c);
+  transition: transform .25s ease, width .25s ease, opacity .25s ease;
+  pointer-events:none;
+}
+
+/* ---------------------------------------------------
+   MOBILE HAMBURGER (2 LINES)
+------------------------------------------------------ */
+.menu-btn{
+  width:34px;height:18px;
+  display:none;
+  flex-direction:column;justify-content:space-between;
+  cursor:pointer;
+}
+.menu-line{
+  height:3px;width:100%;background:#111;border-radius:6px;
+  transition:transform .28s ease;
+}
+.menu-btn.active .menu-line:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn.active .menu-line:nth-child(2){transform:translateY(-6px) rotate(-45deg)}
+
+/* DROPDOWN */
+.nav-dropdown{
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  top:calc(var(--nav-h) + 12px);
+  width:calc(100% - 56px);
+  max-width:960px;
+  background:rgba(255,255,255,0.92);
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius:14px;padding:16px;
+  backdrop-filter:blur(12px);
+  display:none;
+}
+.nav-links{display:flex;flex-direction:column;gap:12px;text-align:center}
+.nav-links a{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  color:#111;
+  font-size:1.1rem;
+}
+
+/* ---------------------------------------------------
+   HERO
+------------------------------------------------------ */
+.hero{
+  padding-top:140px;
+  text-align:center;
+  max-width:var(--max);
+  margin:0 auto;
+  padding-bottom:36px;
+}
+.hero h1{
+  font-family:'Space Grotesk';
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:clamp(2.2rem,4.6vw,3.1rem);
+  margin-bottom:10px;
+}
+.hero p{color:var(--muted);font-size:1.05rem}
+
+/* ---------------------------------------------------
+   BUTTON STYLES
+------------------------------------------------------ */
+.btn{
+  padding:12px 18px;
+  border-radius:14px;
+  border:0;
+  font-weight:700;
+  background:var(--accent-grad);
+  color:white;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+/* OUTLINE GRADIENT BUTTON */
+.btn-outline{
+  padding:12px 18px;
+  border-radius:14px;
+  border:2px solid transparent;
+  background:
+    linear-gradient(#F2E8DA, #F2E8DA) padding-box,
+    var(--accent-grad) border-box;
+  color:#ff66c1;
+  font-weight:700;
+  transition:0.35s ease;
+}
+.btn-outline:hover{
+  color:white;
+  background:var(--accent-grad);
+  border-color:transparent;
+}
+
+.arrow-link{
+  font-weight:700;
+  color:#444;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  transition:0.25s ease;
+}
+.arrow-link:hover{
+  color:#000;
+  transform:translateX(4px);
+}
+
+/* ---------------------------------------------------
+   SECTIONS
+------------------------------------------------------ */
+.section{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:48px 20px;
+  text-align:center;
+}
+.section h2{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:2rem;
+  margin-bottom:12px;
+}
+.desc{
+  max-width:780px;
+  margin:0 auto 32px;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.6;
+}
+
+/* ---------------------------------------------------
+   SERVICES GRID (2 × 2)
+------------------------------------------------------ */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:28px;
+}
+.card{
+  background:rgba(255,255,255,0.6);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 14px 40px rgba(10,10,10,0.06);
+  display:flex;
+  flex-direction:column;
+}
+.media{
+  width:100%;
+  aspect-ratio:16/10;
+  background:#eee;
+  overflow:hidden;
+}
+.media img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .8s ease;
+}
+.card:hover .media img{transform:scale(1.05)}
+.body{padding:20px;text-align:left}
+.body h3{
+  font-family:'Space Grotesk';
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:1.25rem;
+  margin-bottom:10px;
+}
+.body p{color:#4d4946;margin-bottom:16px;line-height:1.6}
+
+/* Card CTA row */
+.card-cta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+}
+
+/* ---------------------------------------------------
+   MOBILE
+------------------------------------------------------ */
+@media(max-width:900px){
+  nav.primary{display:none}
+  .menu-btn{display:flex}
+  .cards{grid-template-columns:1fr}
+  .body{text-align:left}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <header class="nav" id="mainNav">
+    
+    <div class="brand-wrap">
+      <img src="studiologo.png" class="brand-logo">
+      <div class="brand">StudioVyne</div>
+    </div>
+
+    <nav class="primary">
+      <a href="#services">SERVICES</a>
+      <a href="#work">WORK</a>
+      <a href="#about">ABOUT</a>
+      <a href="#contact">CONTACT</a>
+      <div class="underline-bar" id="underlineBar"></div>
+    </nav>
+
+    <div class="menu-btn" id="hamburger">
+      <div class="menu-line"></div>
+      <div class="menu-line"></div>
+    </div>
+
+    <div class="nav-dropdown" id="navDropdown">
+      <div class="nav-links">
+        <a href="#services">SERVICES</a>
+        <a href="#work">WORK</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </div>
+
+  </header>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>What We Offer</h1>
+  <p>Clean, strategic, and crafted visuals — built for clarity & conversion.</p>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <h2>Our Services</h2>
+  <p class="desc">Branding, design, content and digital execution — aligned to your growth.</p>
+
+  <div class="cards">
+
+    <!-- Card 1 -->
+    <article class="card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1545235617-9465b8f3b0b7?auto=format&fit=crop&w=1400&q=80">
+      </div>
+      <div class="body">
+        <h3>Brand Identity</h3>
+        <p>Logo systems, visual language and guidelines that make your brand instantly recognisable.</p>
+
+        <div class="card-cta">
+          <button class="btn">Start a project</button>
+          <a class="arrow-link" href="#work">Our Works →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80">
+      </div>
+      <div class="body">
+        <h3>Creative & Content</h3>
+        <p>Campaigns, social assets, motion and ad creative that tell your story with clarity and impact.</p>
+
+        <div class="card-cta">
+          <button class="btn">Book a call</button>
+          <a class="arrow-link" href="#work">Our Works →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80">
+      </div>
+      <div class="body">
+        <h3>Digital & Web</h3>
+        <p>Product design, landing pages and UX that convert — elegant, performant and scalable.</p>
+
+        <div class="card-cta">
+          <button class="btn">See offerings</button>
+          <a class="arrow-link" href="#work">Our Works →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80">
+      </div>
+      <div class="body">
+        <h3>Production & Editing</h3>
+        <p>Photo/video production, post-production and colour — cinematic assets built to perform.</p>
+
+        <div class="card-cta">
+          <button class="btn">View Showreel</button>
+          <a class="arrow-link" href="#work">Our Works →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<footer style="text-align:center;padding:40px;color:#7a706a;">
+  © 2025 StudioVyne — Crafted with Care
+</footer>
+
+</main>
+
+<script>
+/* -------------------------------
+   NAV UNDERLINE HOVER ONLY
+--------------------------------*/
+const nav = document.querySelector("nav.primary");
+const links = nav.querySelectorAll("a");
+const bar = document.getElementById("underlineBar");
+
+links.forEach(link=>{
+  link.addEventListener("mouseenter", ()=> {
+    const rect = link.getBoundingClientRect();
+    const parent = nav.getBoundingClientRect();
+    const left = rect.left - parent.left;
+
+    bar.style.opacity = 1;
+    bar.style.width = rect.width + "px";
+    bar.style.transform = `translateX(${left}px)`;
+  });
+
+  link.addEventListener("mouseleave", ()=> {
+    bar.style.opacity = 0;
+    bar.style.width = "0px";
+  });
+});
+
+/* -------------------------------
+   DROPDOWN (MOBILE)
+--------------------------------*/
+const ham = document.getElementById("hamburger");
+const dd = document.getElementById("navDropdown");
+let open = false;
+
+ham.onclick = ()=>{
+  open = !open;
+  ham.classList.toggle("active", open);
+  dd.style.display = open ? "block" : "none";
+};
+
+document.addEventListener("click", e=>{
+  if(open && !document.getElementById("mainNav").contains(e.target)){
+    open = false;
+    ham.classList.remove("active");
+    dd.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
