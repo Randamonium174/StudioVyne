@@ -56,6 +56,7 @@ nav.primary a:hover::after{width:100%}
 .menu-btn.active .menu-line:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .menu-btn.active .menu-line:nth-child(2){transform:translateY(-6px) rotate(-45deg)}
 
+/* DEFAULT dropdown (will be overridden for mobile glass below) */
 .mobile-dropdown{
   position:fixed;
   top:115px;
@@ -92,6 +93,9 @@ nav.primary a:hover::after{width:100%}
   letter-spacing:1.4px;
   text-decoration:none;
   color:white;
+  padding:12px 18px;
+  width:100%;
+  text-align:center;
 }
 
 /* ---------------- HERO ---------------- */
@@ -209,13 +213,13 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
 /* -------------------------------------------------------- */
 @media (max-width: 768px) {
 
-  /* Prevent zooming / cropping */
+  /* Make parallax images cover full section on tall phones (iPhone 16 Pro Max etc.) */
   section.parallax {
-    background-size: contain !important;
+    background-size: cover !important;
     background-repeat: no-repeat !important;
-    background-position: center top !important;
+    background-position: center center !important;
     background-attachment: scroll !important;
-    background-color: #000 !important;
+    min-height: 100vh !important;
   }
 
   /* HERO */
@@ -247,6 +251,33 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
     backdrop-filter: blur(6px);
     border: 1px solid rgba(255,255,255,0.08);
   }
+
+  /* ---- Deep dark glass for mobile dropdown (matches mobile cards) ---- */
+  .mobile-dropdown {
+    background: rgba(6,6,6,0.65) !important;           /* deep dark translucent */
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important;
+    padding: 18px 10px !important;
+    width: 92% !important;
+    max-width: 1200px !important;
+    transform-origin: top center;
+  }
+
+  .mobile-dropdown a {
+    color: #fff !important;
+    padding: 14px 20px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    text-align: center !important;
+    transition: background .18s ease;
+  }
+
+  .mobile-dropdown a:hover {
+    background: rgba(255,255,255,0.03);
+  }
 }
 
 </style>
@@ -264,7 +295,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
       <a href="contact.html">CONTACT</a>
     </nav>
 
-    <div class="menu-btn" id="hamburger">
+    <div class="menu-btn" id="hamburger" aria-label="Menu button" role="button" tabindex="0">
       <div class="menu-line"></div>
       <div class="menu-line"></div>
     </div>
@@ -272,7 +303,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
 </div>
 
 <!-- MOBILE DROPDOWN -->
-<div class="mobile-dropdown" id="mobileDropdown">
+<div class="mobile-dropdown" id="mobileDropdown" aria-hidden="true">
   <a href="help.html">HELP</a>
   <a href="contact.html">CONTACT</a>
 </div>
@@ -282,7 +313,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
 <!-- HERO -->
 <section class="parallax" style="background-image:url('https://images.unsplash.com/photo-1648365899122-baf94c9bb84a?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0');">
   <div class="hero">
-    <div class="hero-logo-wrap"><img src="studiologo.png" class="hero-logo"></div>
+    <div class="hero-logo-wrap"><img src="studiologo.png" class="hero-logo" alt="StudioVyne logo"></div>
     <div class="welcome">Welcome to StudioVyne</div>
     <div class="slogan">CREATIVE STRATEGY THAT SELLS</div>
     <button class="btn" onclick="window.location.href='portfolio.html'"><span class="fill"></span><span>Enquire Services</span></button>
@@ -293,7 +324,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
 <section class="parallax" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1740');">
   <div class="cards-container">
     <div class="card">
-      <div class="media" data-tilt><img src="https://images.unsplash.com/photo-1758873269276-9518d0cb4a0b?auto=format&fit=crop&q=60&w=900"></div>
+      <div class="media" data-tilt><img src="https://images.unsplash.com/photo-1758873269276-9518d0cb4a0b?auto=format&fit=crop&q=60&w=900" alt=""></div>
       <div class="text">
         <h2>About Us</h2>
         <p>At StudioVyne, we merge creativity with technology — each project is an artful blend of innovation, precision, and emotion.</p>
@@ -307,7 +338,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
 <section class="parallax" style="background-image:url('https://images.unsplash.com/photo-1683382195205-1e3ac66d213b?auto=format&fit=crop&w=900');">
   <div class="cards-container">
     <div class="card">
-      <div class="media" data-tilt><img src="https://plus.unsplash.com/premium_photo-1661544139432-c007a6b9b00b?auto=format&fit=crop&q=80&w=1740"></div>
+      <div class="media" data-tilt><img src="https://plus.unsplash.com/premium_photo-1661544139432-c007a6b9b00b?auto=format&fit=crop&q=80&w=1740" alt=""></div>
       <div class="text">
         <h2>Our Services</h2>
         <p>From branding and 3D visuals to cinematic storytelling — StudioVyne turns complexity into connection and impact.</p>
@@ -360,17 +391,17 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
   <p>Follow our journey, connect with our creators, and let’s build something visionary together.</p>
 
   <div class="socials">
-    <a href="https://instagram.com" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.4A4.6 4.6 0 1016.6 12 4.6 4.6 0 0012 7.4z"/></svg>
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.4A4.6 4.6 0 1016.6 12 4.6 4.6 0 0012 7.4z"/></svg>
     </a>
-    <a href="https://www.linkedin.com" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8H4.7v14H.24zM7.98 8h4.48v1.92h.06c .62-1.18 2.14-2.42 4.4-2.42 4.71 0 5.58 3.1 5.58 7.13V22H17.7v-6.8c0-1.62-.03-3.71-2.26-3.71-2.26 0-2.6 1.76-2.6 3.6V22H7.98z"/></svg>
+    <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8H4.7v14H.24zM7.98 8h4.48v1.92h.06c .62-1.18 2.14-2.42 4.4-2.42 4.71 0 5.58 3.1 5.58 7.13V22H17.7v-6.8c0-1.62-.03-3.71-2.26-3.71-2.26 0-2.6 1.76-2.6 3.6V22H7.98z"/></svg>
     </a>
-    <a href="https://x.com" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M22 5.92c-.64 .28-1.32 .47-2.04 .56 .73-.44 1.3-1.12 1.57-1.94-.68 .4-1.43 .7-2.24 .86A3.53 3.53 0 0012 8.53c0 .28 .03 .55 .09 .81C8.01 9.24 4.48 7.13 2.24 3.79c-.31 .54-.49 1.17-.49 1.84 0 1.27 .65 2.39 1.64 3.05-.6 -.02-1.16 -.18-1.65 -.45v .05c0 1.77 1.27 3.25 2.95 3.58-.39 .11-.8 .17-1.22 .17-.3 0-.59 -.03-.87 -.08 .59 1.83 2.3 3.16 4.33 3.2A7.08 7.08 0 012 19.54a9.95 9.95 0 005.39 1.58c6.46 0 9.99 -5.35 9.99 -9.99l -.01 -.45A7.09 7.09 0 0022 5.92z"/></svg>
+    <a href="https://x.com" target="_blank" aria-label="X">
+      <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M22 5.92c-.64 .28-1.32 .47-2.04 .56 .73-.44 1.3-1.12 1.57-1.94-.68 .4-1.43 .7-2.24 .86A3.53 3.53 0 0012 8.53c0 .28 .03 .55 .09 .81C8.01 9.24 4.48 7.13 2.24 3.79c-.31 .54-.49 1.17-.49 1.84 0 1.27 .65 2.39 1.64 3.05-.6 -.02-1.16 -.18-1.65 -.45v .05c0 1.77 1.27 3.25 2.95 3.58-.39 .11-.8 .17-1.22 .17-.3 0-.59 -.03-.87 -.08 .59 1.83 2.3 3.16 4.33 3.2A7.08 7.08 0 012 19.54a9.95 9.95 0 005.39 1.58c6.46 0 9.99 -5.35 9.99 -9.99l -.01 -.45A7.09 7.09 0 0022 5.92z"/></svg>
     </a>
-    <a href="https://wa.me/919952034636" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M20.52 3.478A11.94 11.94 0 0012 .5 11.94 11.94 0 003.478 3.478 11.94 11.94 0 00.5 12c0 2.11 .553 4.136 1.603 5.924L.5 23.5l5.862 -1.606A11.94 11.94 0 0012 23.5c3.18 0 6.16 -1.24 8.522 -3.478A11.94 11.94 0 0023.5 12 11.94 11.94 0 0020.52 3.478zM12 20.5a8.5 8.5 0 01-4.3 -1.14l -.31 -.18 -3.48 .95 .94 -3.39 -.2 -.34A8.5 8.5 0 1112 20.5zM16.13 13.95c -.22 -.11-1.3 -.64-1.5 -.71 -.2 -.07-.35 -.11-.5 .11-.15 .22-.57 .71-.7 .86-.13 .15-.26 .17-.48 .06-.22 -.11-.93 -.34-1.77 -1.09-.66 -.59-1.11 -1.31-1.24 -1.53-.13 -.22-.01 -.34 .1 -.45 .1 -.1 .22 -.26 .33 -.39 .11 -.13 .15 -.22 .22 -.37 .07 -.15 .04 -.28 -.02 -.39-.06 -.11-.5 -1.2 -.68 -1.64-.18 -.44-.36 -.38-.5 -.38h -.43c -.15 0 -.39 .06 -.6 .28s -.78 .76 -.78 1.85 .8 2.14 .9 2.29c .11 .15 1.57 2.4 3.8 3.37 2.23 .97 2.23 .65 2.63 .61 .4 -.04 1.3 -.53 1.49 -1.05 .19 -.52 .19 -.97 .13 -1.05 -.06 -.07 -.2 -.11 -.41 -.22z"/></svg>
+    <a href="https://wa.me/919952034636" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M20.52 3.478A11.94 11.94 0 0012 .5 11.94 11.94 0 003.478 3.478 11.94 11.94 0 00.5 12c0 2.11 .553 4.136 1.603 5.924L.5 23.5l5.862 -1.606A11.94 11.94 0 0012 23.5c3.18 0 6.16 -1.24 8.522 -3.478A11.94 11.94 0 0023.5 12 11.94 11.94 0 0020.52 3.478zM12 20.5a8.5 8.5 0 01-4.3 -1.14l -.31 -.18 -3.48 .95 .94 -3.39 -.2 -.34A8.5 8.5 0 1112 20.5zM16.13 13.95c -.22 -.11-1.3 -.64-1.5 -.71 -.2 -.07-.35 -.11-.5 .11-.15 .22-.57 .71-.7 .86-.13 .15-.26 .17-.48 .06-.22 -.11-.93 -.34-1.77 -1.09-.66 -.59-1.11 -1.31-1.24 -1.53-.13 -.22-.01 -.34 .1 -.45 .1 -.1 .22 -.26 .33 -.39 .11 -.13 .15 -.22 .22 -.37 .07 -.15 .04 -.28 -.02 -.39-.06 -.11-.5 -1.2 -.68 -1.64-.18 -.44-.36 -.38-.5 -.38h -.43c -.15 0 -.39 .06 -.6 .28s -.78 .76 -.78 1.85 .8 2.14 .9 2.29c .11 .15 1.57 2.4 3.8 3.37 2.23 .97 2.23 .65 2.63 .61 .4 -.04 1.3 -.53 1.49 -1.05 .19 -.52 .19 -.97 .13 -1.05 -.06 -.07 -.2 -.11 -.41 -.22z"/></svg>
     </a>
   </div>
 </section>
@@ -432,6 +463,8 @@ const dropdown = document.getElementById("mobileDropdown");
 ham.addEventListener("click", () => {
   ham.classList.toggle("active");
   dropdown.classList.toggle("active");
+  // accessibility state
+  dropdown.setAttribute('aria-hidden', dropdown.classList.contains('active') ? 'false' : 'true');
 });
 
 /* CLOSE WHEN CLICKING ANY LINK */
@@ -439,6 +472,7 @@ dropdown.querySelectorAll("a").forEach(link => {
   link.addEventListener("click", () => {
     ham.classList.remove("active");
     dropdown.classList.remove("active");
+    dropdown.setAttribute('aria-hidden', 'true');
   });
 });
 
@@ -447,6 +481,15 @@ document.addEventListener("click", (e) => {
   if (!ham.contains(e.target) && !dropdown.contains(e.target)) {
     ham.classList.remove("active");
     dropdown.classList.remove("active");
+    dropdown.setAttribute('aria-hidden', 'true');
+  }
+});
+
+/* Keyboard toggle (Enter/Space) for accessibility */
+ham.addEventListener("keydown", (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    ham.click();
   }
 });
 </script>
