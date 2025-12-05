@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>StudioVyne — Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --max:1320px;
+  --container-width-pct:94%;
+  --accent-grad: linear-gradient(135deg,#ff66c1,#ff9ab0 40%,#ffd18c 80%);
+  --pill-bg: rgba(255,255,255,0.06);
+  --pill-border: rgba(255,255,255,0.28);
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Inter,system-ui;
+  overflow-x:hidden;
+  background-image:url("https://plus.unsplash.com/premium_photo-1676747210010-45707474df36?q=80&w=1740&auto=format&fit=crop");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+@media(max-width:520px){
+  body{
+    background-image:url("https://images.unsplash.com/photo-1747080547199-123f9b8877f3?q=80&w=774&auto=format&fit=crop");
+  }
+}
+
+.container{
+  max-width:var(--max);
+  width:var(--container-width-pct);
+  margin:0 auto;
+}
+
+/* NAV FIX */
+.nav-wrap{
+  position:fixed;top:18px;left:0;right:0;
+  display:flex;justify-content:center;
+  z-index:3000;
+  pointer-events:none;
+}
+.nav{
+  width:var(--container-width-pct);
+  max-width:var(--max);
+  height:72px;
+  background:rgba(255,255,255,0.66);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 22px;
+  pointer-events:auto;
+}
+
+.brand-wrap{display:flex;align-items:center;gap:10px}
+.brand-logo{
+  width:48px;height:48px;border-radius:50%;object-fit:cover;
+}
+.brand{
+  font-family:'Space Grotesk';font-weight:800;font-size:1.1rem;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+nav.primary{
+  display:flex;gap:34px;align-items:center;position:relative;
+}
+nav.primary a{
+  font-family:'Space Grotesk';
+  font-weight:700;
+  color:#111;
+  padding:6px 0;
+  text-decoration:none;
+  transition:.24s;
+}
+nav.primary a:hover{
+  transform:translateY(-2px);
+  opacity:.85;
+}
+
+.underline-bar{
+  position:absolute;
+  bottom:-10px;
+  height:4px;width:0;left:0;
+  background:var(--accent-grad);
+  opacity:0;border-radius:6px;
+  transition:left .28s,width .28s,opacity .18s;
+}
+
+/* MOBILE NAV */
+.menu-btn{
+  width:34px;height:34px;display:none;
+  align-items:center;justify-content:center;
+  cursor:pointer;position:relative;
+}
+.menu-line{
+  position:absolute;width:28px;height:3px;
+  background:#111;border-radius:3px;
+  transition:.28s ease;
+}
+.menu-line:nth-child(1){transform:translateY(-5px)}
+.menu-line:nth-child(2){transform:translateY(5px)}
+.menu-btn.active .menu-line:nth-child(1){transform:rotate(45deg)}
+.menu-btn.active .menu-line:nth-child(2){transform:rotate(-45deg)}
+
+.nav-dropdown{
+  position:absolute;top:85px;left:50%;transform:translateX(-50%);
+  width:92%;display:none;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(12px);
+  border-radius:16px;padding:12px 0;
+}
+.nav-dropdown a{
+  display:block;text-align:center;padding:12px 0;
+  font-family:'Space Grotesk';font-weight:800;color:#111;
+  text-decoration:none;
+}
+
+@media(max-width:980px){
+  nav.primary{display:none}
+  .menu-btn{display:flex}
+}
+
+/* HERO */
+.hero{
+  padding-top:160px;text-align:center;padding-bottom:30px;
+}
+.hero h1{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  font-size:clamp(2.4rem,4.4vw,3.2rem);
+  background:var(--accent-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero .slogan{
+  margin-top:14px;
+  font-size:1.6rem;
+  font-weight:800;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* CTA BUTTON */
+.btn-cta{
+  margin-top:26px;
+  padding:14px 38px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.4);
+  background:rgba(255,255,255,0.10);
+  backdrop-filter:blur(12px);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:.35s ease;
+  z-index:10;
+}
+.btn-cta span{
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  position:relative;
+  z-index:2;
+  font-weight:700;
+}
+.btn-cta::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--accent-grad);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:.35s cubic-bezier(.2,.9,.3,1);
+  border-radius:999px;
+  pointer-events:none;
+  z-index:0;
+}
+.btn-cta:hover::after{transform:scaleX(1)}
+.btn-cta:hover span{-webkit-text-fill-color:white}
+
+/* WHY HEADER */
+.why-title{
+  text-align:center;
+  margin:40px 0 20px;
+  font-family:'Space Grotesk';
+  font-weight:800;
+  font-size:2rem;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* SUBCARDS */
+.subgrid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:18px;margin-bottom:90px;
+}
+@media(max-width:900px){.subgrid{grid-template-columns:1fr}}
+
+.subcard{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 12px 34px rgba(0,0,0,0.1);
+}
+.sub-img{height:220px;overflow:hidden;}
+.sub-img img{width:100%;height:100%;object-fit:cover;}
+.sub-content{padding:20px}
+.sub-title{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  font-size:1.2rem;
+  margin-bottom:6px
+}
+.sub-desc{color:#555;font-size:.98rem}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:.25s;
+  z-index:4000;
+  display:none;
+}
+.modal-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+  display:block;
+}
+
+/* OLD FORM RESTORED */
+.modal{
+  position:fixed;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(.97);
+  width:760px;
+  max-width:92%;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:26px;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:5000;
+}
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(-50%,-50%) scale(1);
+}
+
+.modal h2{
+  font-family:'Space Grotesk';
+  font-size:1.6rem;
+  margin-bottom:12px;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.modal-close-x{
+  position:absolute;
+  top:14px;right:16px;
+  width:34px;height:34px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.35);
+  backdrop-filter:blur(8px);
+  color:white;
+  font-size:18px;font-weight:600;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* PILLS */
+.pill-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:20px;
+}
+.pill{
+  padding:12px;border-radius:12px;
+  background:var(--pill-bg);
+  border:1px solid var(--pill-border);
+  text-align:center;cursor:pointer;
+  font-weight:600;transition:.25s;
+}
+.pill.active{
+  background:var(--accent-grad);
+  border-color:transparent;color:#111;
+}
+
+/* FORM */
+.input{
+  width:100%;padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.12);
+  color:white;margin-bottom:12px;
+}
+textarea.input{
+  min-height:120px;
+}
+
+.btn-row{display:flex;justify-content:space-between;margin-top:12px}
+.btn-dark, .btn-light{
+  padding:10px 20px;border-radius:12px;
+  font-weight:600;cursor:pointer;
+}
+.btn-dark{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.3);
+  color:white;
+}
+.btn-light{
+  background:white;color:#111;
+  border:0;
+}
+
+.success{text-align:center;padding:30px}
+.success h3{font-size:1.4rem;font-family:'Space Grotesk'}
+
+footer{
+  margin-top:120px;
+  text-align:center;
+  padding:40px 0;
+  color:white;
+  font-size:0.9rem;
+  opacity:0.9;
+}
+footer span{
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-weight:700;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav-wrap">
+<header class="nav" id="mainNav">
+
+  <div class="brand-wrap">
+    <img src="studiologo.png" class="brand-logo">
+    <div class="brand">StudioVyne</div>
+  </div>
+
+  <nav class="primary">
+    <a href="index.html">HOME</a>
+    <a href="services.html">SERVICES</a>
+    <a href="contact.html">CONTACT</a>
+    <div class="underline-bar" id="underlineBar"></div>
+  </nav>
+
+  <div class="menu-btn" id="hamburger">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+  </div>
+
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="index.html">HOME</a>
+    <a href="services.html">SERVICES</a>
+    <a href="contact.html">CONTACT</a>
+  </div>
+
+</header>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>SUBMIT YOUR SERVICE ENQUIRY</h1>
+    <div class="slogan">Where clarity, creativity, and strategy come together.</div>
+    <button class="btn-cta" id="openForm"><span>Get Your Service →</span></button>
+  </div>
+</section>
+
+<!-- WHY -->
+<h2 class="why-title">Why StudioVyne?</h2>
+
+<div class="container">
+  <div class="subgrid">
+
+    <div class="subcard">
+      <div class="sub-img">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80">
+      </div>
+      <div class="sub-content">
+        <div class="sub-title">Cinematic Visual Craft</div>
+        <div class="sub-desc">High-end lighting, colour grading, and motion — every frame intentional.</div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="sub-img">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80">
+      </div>
+      <div class="sub-content">
+        <div class="sub-title">Fast, Reliable Delivery</div>
+        <div class="sub-desc">Organised workflows and predictable timelines.</div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="sub-img">
+        <img src="https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?q=80">
+      </div>
+      <div class="sub-content">
+        <div class="sub-title">Brand Customisation</div>
+        <div class="sub-desc">Shaped to your brand identity and tone.</div>
+      </div>
+    </div>
+
+    <div class="subcard">
+      <div class="sub-img">
+        <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80">
+      </div>
+      <div class="sub-content">
+        <div class="sub-title">Results-Focused Storytelling</div>
+        <div class="sub-desc">Designed for modern attention patterns.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  © <span>StudioVyne™</span> — All Rights Reserved
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay"></div>
+
+<div class="modal" id="modalBox">
+
+  <button class="modal-close-x" id="modalCloseX">✕</button>
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <h2>Select Your Desired Service</h2>
+
+    <div class="pill-grid">
+      <div class="pill" data-val="Product Shoot">Product Shoot</div>
+      <div class="pill" data-val="Interview Shoot">Interview Shoot</div>
+      <div class="pill" data-val="Vox-Pop">Vox-Pop</div>
+      <div class="pill" data-val="Brand Films">Brand Films</div>
+      <div class="pill" data-val="Short-Form Editing">Short-Form Editing</div>
+      <div class="pill" data-val="Long-Form Editing">Long-Form Editing</div>
+      <div class="pill" data-val="Ad Edits">Ad Edits</div>
+      <div class="pill" data-val="Social Media Content">Social Media Content</div>
+      <div class="pill" data-val="Website Build">Website Build</div>
+      <div class="pill" data-val="Website Redesign">Website Redesign</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-dark" id="closeModal1">Cancel</button>
+      <button class="btn-light" id="toStep2" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" style="display:none;">
+    <h2>Fill Out Your Information</h2>
+
+    <input class="input" type="text" id="name" placeholder="Full Name *">
+    <input class="input" type="email" id="email" placeholder="Email *">
+    <input class="input" type="text" id="phone" placeholder="Phone Number *">
+    <textarea class="input" id="project" placeholder="Describe what you need *"></textarea>
+
+    <div class="btn-row">
+      <button class="btn-dark" id="backTo1">Back</button>
+      <button class="btn-light" id="toConfirm" disabled>Review</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 (UPDATED) -->
+  <div id="step3" style="display:none;text-align:center;">
+    <h2>Confirm Submission</h2>
+
+    <h3 style="font-size:1.2rem;margin:12px 0 6px;">Selected Services</h3>
+
+    <div id="reviewServices"
+         style="
+            background:rgba(255,255,255,0.12);
+            border:1px solid rgba(255,255,255,0.25);
+            padding:14px;
+            border-radius:14px;
+            width:80%;
+            margin:0 auto 18px;
+            text-align:left;
+            line-height:1.55;
+         ">
+      <!-- Filled dynamically -->
+    </div>
+
+    <p style="opacity:.85;margin-top:6px;">Are you sure you want to submit this enquiry?</p>
+
+    <div class="btn-row" style="margin-top:22px;justify-content:center;gap:12px;">
+      <button class="btn-dark" id="backTo2">Back</button>
+      <button class="btn-light" id="finalSubmit">Submit</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="step4" style="display:none;">
+    <div class="success">
+      <h3>Successfully Submitted!</h3>
+      <p>StudioVyne will reach out to you in 3 working days.</p>
+      <button class="btn-light" id="closeSuccess" style="margin-top:16px;">Close</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* Nav underline */
+(function(){
+  const nav=document.querySelector("nav.primary");
+  const bar=document.getElementById("underlineBar");
+  if(!nav)return;
+  const links=[...nav.querySelectorAll("a")];
+
+  function show(link){
+    const navRect=nav.getBoundingClientRect();
+    const r=link.getBoundingClientRect();
+    bar.style.left=(r.left-navRect.left)+"px";
+    bar.style.width=r.width+"px";
+    bar.style.opacity="1";
+  }
+  function hide(){bar.style.opacity="0"}
+
+  links.forEach(l=>{
+    l.addEventListener("mouseenter",()=>show(l));
+    l.addEventListener("mouseleave",hide);
+  });
+
+  nav.addEventListener("mouseleave",hide);
+})();
+
+/* Mobile nav */
+const ham=document.getElementById("hamburger");
+const dd=document.getElementById("navDropdown");
+let open=false;
+ham.onclick=e=>{
+  e.stopPropagation();
+  open=!open;
+  ham.classList.toggle("active",open);
+  dd.style.display=open?"block":"none";
+};
+document.onclick=e=>{
+  if(open && !document.getElementById("mainNav").contains(e.target)){
+    open=false;ham.classList.remove("active");dd.style.display="none";
+  }
+};
+
+/* Modal Logic */
+
+const modalOverlay=document.getElementById("modalOverlay");
+const modalBox=document.getElementById("modalBox");
+const openForm=document.getElementById("openForm");
+
+function openModal(){
+  modalOverlay.classList.add("active");
+  modalBox.classList.add("active");
+}
+function closeModal(){
+  modalOverlay.classList.remove("active");
+  modalBox.classList.remove("active");
+}
+
+openForm.onclick=openModal;
+document.getElementById("closeModal1").onclick=closeModal;
+document.getElementById("modalCloseX").onclick=closeModal;
+
+/* Steps */
+const step1=document.getElementById("step1");
+const step2=document.getElementById("step2");
+const step3=document.getElementById("step3");
+const step4=document.getElementById("step4");
+
+const toStep2=document.getElementById("toStep2");
+const backTo1=document.getElementById("backTo1");
+const toConfirm=document.getElementById("toConfirm");
+const backTo2=document.getElementById("backTo2");
+const finalSubmit=document.getElementById("finalSubmit");
+const closeSuccess=document.getElementById("closeSuccess");
+
+/* Pill selection */
+let selectedServices=[];
+document.querySelectorAll(".pill").forEach(p=>{
+  p.onclick=()=>{
+    p.classList.toggle("active");
+    const val=p.innerText;
+    if(p.classList.contains("active")) selectedServices.push(val);
+    else selectedServices=selectedServices.filter(x=>x!==val);
+    toStep2.disabled = selectedServices.length===0;
+  };
+});
+
+/* Step 1 → Step 2 */
+toStep2.onclick=()=>{
+  step1.style.display="none";
+  step2.style.display="block";
+};
+
+/* Step 2 → Back */
+backTo1.onclick=()=>{
+  step2.style.display="none";
+  step1.style.display="block";
+};
+
+/* Validate Step 2 */
+function validateStep2(){
+  const name=document.getElementById("name").value.trim();
+  const email=document.getElementById("email").value.trim();
+  const proj=document.getElementById("project").value.trim();
+  toConfirm.disabled = !(name && email && proj);
+}
+document.querySelectorAll("#name,#email,#project").forEach(el=>{
+  el.addEventListener("input",validateStep2);
+});
+
+/* ⭐ Populate Review Section */
+function populateReview(){
+  const box = document.getElementById("reviewServices");
+  box.innerHTML = selectedServices.length
+      ? selectedServices.map(s => `• ${s}`).join("<br>")
+      : "No services selected.";
+}
+
+/* Step 2 → Step 3 */
+toConfirm.onclick=()=>{
+  populateReview();          /* ← new */
+  step2.style.display="none";
+  step3.style.display="block";
+};
+
+/* Step 3 → Back */
+backTo2.onclick=()=>{
+  step3.style.display="none";
+  step2.style.display="block";
+};
+
+/* Final submit */
+finalSubmit.onclick=()=>{
+  step3.style.display="none";
+  step4.style.display="block";
+};
+
+/* Close success */
+closeSuccess.onclick=closeModal;
+</script>
+
+</body>
+</html>
