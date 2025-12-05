@@ -31,7 +31,21 @@ body{
   background:var(--champagne);
   color:#111;
   overflow-x:hidden;
+
+  background-image:url("https://plus.unsplash.com/premium_photo-1723200799213-e6cff0c3e641?q=80&w=1742&auto=format&fit=crop");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 }
+
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:rgba(255,255,255,0.45);
+  backdrop-filter:blur(2px);
+  z-index:-1;
+}
+
 a{text-decoration:none;color:inherit;}
 .container{max-width:var(--max);width:var(--container-width-pct);margin:0 auto;}
 
@@ -51,7 +65,9 @@ a{text-decoration:none;color:inherit;}
   box-shadow:0 18px 48px rgba(10,10,10,0.06);
 }
 .brand-wrap{display:flex;align-items:center;gap:12px}
-.brand-logo{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#fff}
+.brand-logo{
+  width:48px;height:48px;border-radius:50%;object-fit:cover;background:#fff;
+}
 .brand{
   font-family:'Space Grotesk';font-weight:800;font-size:1.06rem;
   background:var(--accent-grad);
@@ -66,25 +82,20 @@ nav.primary{
 nav.primary a{
   font-family:'Space Grotesk';font-weight:700;
   padding:6px 0;
-  transition:transform .24s ease, opacity .24s ease;
+  transition:transform .24s ease,opacity .24s ease;
 }
 nav.primary a:hover{
   transform:translateY(-3px);
   opacity:.9;
 }
 
-/* UNDERLINE — PURE HOVER ONLY */
+/* UNDERLINE */
 .underline-bar{
-  position:absolute;
-  bottom:-10px;
+  position:absolute;bottom:-10px;
   height:4px;width:0;left:0;
   background:linear-gradient(90deg,#ff66c1,#ffd18c);
-  border-radius:6px;
-  opacity:0;
-  transition:left .28s cubic-bezier(.22,.9,.28,1),
-             width .28s cubic-bezier(.22,.9,.28,1),
-             opacity .18s ease;
-  pointer-events:none;
+  opacity:0;border-radius:6px;
+  transition:left .28s,width .28s,opacity .18s;
 }
 
 /* HAMBURGER */
@@ -122,14 +133,18 @@ nav.primary a:hover{
 }
 
 /* HERO */
-.hero{padding-top:140px;text-align:center;padding-bottom:20px}
+.hero{
+  padding-top:140px;text-align:center;padding-bottom:20px;
+}
 .hero h1{
   font-family:'Space Grotesk';font-weight:800;
   font-size:clamp(2.2rem,4.4vw,3.2rem);
-  background:var(--accent-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:10px;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
-.hero p{color:var(--muted);font-size:1.02rem}
+.hero p{
+  color:var(--muted);font-size:1.02rem;margin-top:10px;
+}
 
 /* TILE */
 .tile{
@@ -157,16 +172,13 @@ nav.primary a:hover{
   z-index:3;color:white;font-family:'Space Grotesk';
   font-weight:800;font-size:1.55rem;
 }
-.tile-sub{
-  z-index:3;color:white;font-size:1rem;
-}
 .tile-body{padding:16px 20px;}
 
-/* SPACING FIX BELOW POST SECTION */
-#web{margin-top:60px}
-
 /* SUBCARDS */
-.subgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.subgrid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  margin-bottom:90px;  /* <<< FIXED SPACING FOR ALL SECTIONS */
+}
 .subcard{
   background:var(--subcard-bg);border-radius:12px;
   padding:12px;display:flex;flex-direction:column;gap:10px;
@@ -174,12 +186,26 @@ nav.primary a:hover{
   transition:.28s ease;
 }
 .subcard:hover{transform:translateY(-6px)}
-.sub-image{aspect-ratio:4/3;border-radius:12px;overflow:hidden}
-.sub-image img{width:100%;height:100%;object-fit:cover;transition:.7s}
+.sub-image{
+  width:100%;
+  height:160px;        /* <<< FIXED SMALLER HEIGHT */
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.sub-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;    /* keeps it neat and contained */
+  transition:.7s;
+}
+
 .subcard:hover img{transform:scale(1.05)}
 .sub-title{font-family:'Space Grotesk';font-weight:800;font-size:1.05rem}
 .sub-desc{color:var(--muted);font-size:.95rem}
-.sub-footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.sub-footer{
+  display:flex;justify-content:space-between;align-items:center;margin-top:auto;
+}
 
 /* BUTTON */
 .btn-outline{
@@ -193,14 +219,15 @@ nav.primary a:hover{
 .btn-outline .label{
   background:var(--accent-grad);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  font-weight:700;position:relative;z-index:2;
+  font-weight:700;z-index:2;position:relative;
 }
 .btn-outline::before{
-  content:"";position:absolute;inset:0;background:var(--accent-grad);
-  opacity:0;transition:.35s ease;z-index:0;border-radius:12px;
+  content:"";position:absolute;inset:0;
+  background:var(--accent-grad);opacity:0;
+  transition:.35s ease;border-radius:12px;
 }
 .btn-outline:hover::before{opacity:1}
-.btn-outline:hover .label{-webkit-text-fill-color:#fff}
+.btn-outline:hover .label{-webkit-text-fill-color:white}
 
 .arrow-link{
   display:flex;align-items:center;gap:6px;font-weight:800;
@@ -257,6 +284,7 @@ nav.primary a:hover{
 </header>
 </div>
 
+
 <main>
 
 <!-- HERO -->
@@ -267,22 +295,22 @@ nav.primary a:hover{
   </div>
 </section>
 
+
 <!-- ON-SITE -->
 <section id="onsite">
 <div class="container">
 
   <div class="tile reveal">
     <div class="tile-media">
-      <img src="https://images.unsplash.com/photo-1517519014922-8fcf8d9f1e3b">
+      <img src="https://images.unsplash.com/photo-1632187981988-40f3cbaeef5e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZmlsbSUyMHByb2R1Y3Rpb258ZW58MHx8MHx8fDA%3D">
       <div class="tile-title">On-Site Production</div>
-     
     </div>
   </div>
 
   <div class="subgrid">
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1542831371-d531d36971e6"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1726869694722-66df5f9621b8?q=80&w=1558&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Product Shoot</div>
       <div class="sub-desc">Studio and lifestyle shoots displaying product features.</div>
       <div class="sub-footer">
@@ -292,7 +320,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1682097071308-f91ccf64cbd3?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Interview Shoot</div>
       <div class="sub-desc">On-location interviews with cinematic lighting.</div>
       <div class="sub-footer">
@@ -302,7 +330,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1763674561330-5f87d703ea0e?q=80&w=1450&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Vox-Pop Shoots</div>
       <div class="sub-desc">Fast-paced street interviews shot with clarity.</div>
       <div class="sub-footer">
@@ -312,7 +340,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1630979683988-cf84aaad8ab0?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Brand Film Shoots</div>
       <div class="sub-desc">Narrative-driven storytelling for impactful visuals.</div>
       <div class="sub-footer">
@@ -326,15 +354,15 @@ nav.primary a:hover{
 </div>
 </section>
 
+
 <!-- POST-PRODUCTION -->
 <section id="post">
 <div class="container">
 
   <div class="tile reveal">
     <div class="tile-media">
-      <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f">
+      <img src="https://images.unsplash.com/photo-1579109652910-99b9be06aaec?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
       <div class="tile-title">Post-Production</div>
-     
     </div>
   </div>
 
@@ -351,7 +379,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1520975914206-8c3a3f2d9b82"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1528109966604-5a6a4a964e8d?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Long-Form Editing</div>
       <div class="sub-desc">Engaging YouTube & documentary storytelling.</div>
       <div class="sub-footer">
@@ -361,7 +389,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1519337265831-281ec6cc8514"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1621600411688-4be93cd68504?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Ad Edits</div>
       <div class="sub-desc">Conversion-optimized fast-paced ads.</div>
       <div class="sub-footer">
@@ -371,7 +399,7 @@ nav.primary a:hover{
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1684341008757-3b456034e943?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
       <div class="sub-title">Social Media Presence</div>
       <div class="sub-desc">Brand-consistent content systems.</div>
       <div class="sub-footer">
@@ -385,6 +413,7 @@ nav.primary a:hover{
 </div>
 </section>
 
+
 <!-- WEBSITE -->
 <section id="web">
 <div class="container">
@@ -393,17 +422,13 @@ nav.primary a:hover{
     <div class="tile-media">
       <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
       <div class="tile-title">Website Development</div>
-     
     </div>
 
     <div class="tile-body">
       <div class="tile-buttons">
         <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works 
-          <svg width="14" height="12" viewBox="0 0 14 12">
-            <path d="M1 6h11" stroke="#444" stroke-width="2" stroke-linecap="round"/>
-            <path d="M8 1l4 5-4 5" stroke="#444" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+        <a class="arrow-link" href="#work">
+          Our Works →
         </a>
       </div>
     </div>
@@ -412,9 +437,11 @@ nav.primary a:hover{
 </div>
 </section>
 
+
 <footer style="text-align:center;padding:40px 0;color:#555;">
   © 2025 StudioVyne — Crafted with care
 </footer>
+
 
 </main>
 
@@ -472,7 +499,7 @@ document.onkeydown=e=>{
   }
 };
 
-/* UNDERLINE — PURE HOVER ONLY */
+/* UNDERLINE */
 (function(){
   const nav=document.querySelector("nav.primary");
   const bar=document.getElementById("underlineBar");
@@ -487,7 +514,6 @@ document.onkeydown=e=>{
     bar.style.width=r.width+"px";
     bar.style.opacity="1";
   }
-
   function hide(){
     bar.style.opacity="0";
   }
