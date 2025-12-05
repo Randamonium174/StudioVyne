@@ -50,22 +50,58 @@ nav.primary a:hover{transform:translateY(-2px)}
 nav.primary a::after{content:"";position:absolute;bottom:-6px;left:0;height:3px;width:0%;background:linear-gradient(90deg,#ff66c1,#ffd18c);border-radius:4px;box-shadow:0 0 12px rgba(255,190,160,0.5);transition:width .35s}
 nav.primary a:hover::after{width:100%}
 
-/* ---------------- APPLE-STYLE HAMBURGER ---------------- */
+/* ---------------- MOBILE FULL-WIDTH DROPDOWN ---------------- */
 .menu-btn{width:34px;height:16px;display:none;flex-direction:column;justify-content:space-between;cursor:pointer}
 .menu-line{height:3px;background:white;border-radius:6px;transition:transform .35s ease,opacity .25s ease}
-
-/* PERFECT CENTERED CROSS FOR 16px HEIGHT */
 .menu-btn.active .menu-line:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .menu-btn.active .menu-line:nth-child(2){transform:translateY(-6px) rotate(-45deg)}
 
-.mobile-menu{
-  position:fixed;top:84px;right:12px;width:180px;background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:16px;
-  opacity:0;pointer-events:none;transform:translateY(-16px);transition:.35s;z-index:999;
+.mobile-dropdown{
+  position:fixed;
+  top:115px; /* slightly closer to navbar */
+  left:50%;
+  transform:translateX(-50%);
+  width:88%;               /* narrower */
+  max-width:820px;         /* smaller card width */
+
+  background:rgba(255,255,255,0.015);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:16px;      /* slightly smaller radius */
+
+  padding:14px 0;          /* MUCH smaller height */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;                /* spacing between HELP / CONTACT reduced */
+
+  opacity:0;
+  pointer-events:none;
+  transform-origin:top center;
+  transform:translate(-50%, -12px);
+  transition:opacity .22s ease, transform .22s ease;
+
+  z-index:3000;
 }
 
-.mobile-menu.active{opacity:1;pointer-events:auto;transform:translateY(0)}
-.mobile-menu a{color:white;font-family:'Space Grotesk';font-weight:800;text-decoration:none;padding:8px 0;font-size:1.05rem}
+.mobile-dropdown.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(-50%, 0);
+}
+
+.mobile-dropdown a{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  font-size:0.95rem;   /* MUCH smaller text */
+  letter-spacing:1.4px;
+  text-decoration:none;
+  color:white;
+}
+
+
 
 /* ---------------- HERO ---------------- */
 .hero{display:grid;place-items:center;text-align:center;padding:160px 20px 100px;position:relative;z-index:2}
@@ -138,9 +174,6 @@ nav.primary a:hover::after{width:100%}
 footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:black}
 
 /* ---------------- RESPONSIVE FIXES ---------------- */
-@media (max-width:1024px){
-  .parallax{background-attachment:scroll !important}
-}
 @media (max-width:768px){
   nav.primary{display:none}
   .menu-btn{display:flex}
@@ -149,14 +182,11 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
   .card{flex-direction:column !important;gap:28px;padding:20px}
   .media,.text{width:100% !important}
 }
-
-/* --- REAL ZIG ZAG FIX (BASED ON SECTION ORDER) --- */
 @media (min-width:901px){
   section.parallax:nth-of-type(3) .card {
     flex-direction: row-reverse;
   }
 }
-
 @media (max-width:600px){
   .hero{padding-top:140px}
   .welcome{font-size:clamp(2.3rem,10vw,3.2rem)}
@@ -180,14 +210,15 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
       <a href="contact.html">CONTACT</a>
     </nav>
 
-    <div class="menu-btn" onclick="toggleMenu()">
+    <div class="menu-btn" id="hamburger">
       <div class="menu-line"></div>
       <div class="menu-line"></div>
     </div>
   </header>
 </div>
 
-<div class="mobile-menu" id="mobileMenu">
+<!-- FULL WIDTH DROPDOWN -->
+<div class="mobile-dropdown" id="mobileDropdown">
   <a href="help.html">HELP</a>
   <a href="contact.html">CONTACT</a>
 </div>
@@ -226,7 +257,7 @@ footer{padding:34px;text-align:center;color:rgba(255,255,255,0.85);background:bl
       <div class="text">
         <h2>Our Services</h2>
         <p>From branding and 3D visuals to cinematic storytelling — StudioVyne turns complexity into connection and impact.</p>
-        <button class="btn" onclick="window.location.href='service.html'"><span class="fill"></span><span>View Services</span></button>
+        <button class="btn" onclick="window.location.href='services.html'"><span class="fill"></span><span>View Services</span></button>
       </div>
     </div>
   </div>
@@ -302,7 +333,7 @@ VanillaTilt.init(document.querySelectorAll('.media[data-tilt]'),{
   max:12,speed:600,scale:1.05,glare:false,reverse:true
 });
 
-/* ---------------- SCROLL FADE-IN + FADE-OUT CARDS ---------------- */
+/* Scroll Fade */
 gsap.utils.toArray(".card").forEach(card => {
   gsap.fromTo(card,
     { opacity: 0, y: 120, scale: 0.92 },
@@ -316,21 +347,40 @@ gsap.utils.toArray(".card").forEach(card => {
         start: "top 80%",
         end: "top 20%",
         scrub: true,
-        toggleActions: "play reverse play reverse"
       }
     }
   );
 });
 
-/* Parallax scroll */
+/* Parallax */
 gsap.utils.toArray(".parallax").forEach(section=>{
   gsap.to(section,{backgroundPositionY:"40%",scrollTrigger:{trigger:section,scrub:true}});
 });
 
-function toggleMenu(){
-  document.querySelector(".menu-btn").classList.toggle("active");
-  document.getElementById("mobileMenu").classList.toggle("active");
-}
+/* NEW DROPDOWN TOGGLE */
+const ham = document.getElementById("hamburger");
+const dropdown = document.getElementById("mobileDropdown");
+
+ham.addEventListener("click", () => {
+  ham.classList.toggle("active");
+  dropdown.classList.toggle("active");
+});
+
+/* CLOSE WHEN CLICKING ANY LINK */
+dropdown.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    ham.classList.remove("active");
+    dropdown.classList.remove("active");
+  });
+});
+
+/* CLICK OUTSIDE TO CLOSE */
+document.addEventListener("click", (e) => {
+  if (!ham.contains(e.target) && !dropdown.contains(e.target)) {
+    ham.classList.remove("active");
+    dropdown.classList.remove("active");
+  }
+});
 </script>
 
 </body>
