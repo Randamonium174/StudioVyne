@@ -20,6 +20,10 @@
 /* Reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;scroll-behavior:smooth}
+html{
+  overflow-x:hidden;
+  max-width:100%;
+}
 
 /* FULL PAGE BACKGROUND */
 body{
@@ -264,6 +268,7 @@ main{padding-top:calc(var(--nav-h) + 40px)}
     padding:38px 0 18px;
     perspective:1200px;
     display:block; /* override grid on mobile */
+    touch-action:pan-y; /* allow vertical scroll, block horizontal pan */
   }
 
   .card{
@@ -684,6 +689,7 @@ ham.addEventListener('keydown', e=>{
 /* ===========================
    3D STACKED SWIPE (MOBILE)
    Option B — all cards visible, stack shifts left/right
+   With A-behaviour: allow vertical scroll, block horizontal page move
    =========================== */
 if(isMobile){
   setupStackedSwipe();
@@ -768,7 +774,14 @@ function setupStackedSwipe(){
     function onMove(e){
       if(!isDragging) return;
       if(!e.touches || e.touches.length === 0) return;
-      deltaX = e.touches[0].clientX - startX;
+
+      const touch = e.touches[0];
+      deltaX = touch.clientX - startX;
+
+      // When horizontal movement is significant → prevent horizontal page pan
+      if(Math.abs(deltaX) > 8){
+        e.preventDefault();
+      }
     }
 
     function onEnd(){
@@ -792,8 +805,8 @@ function setupStackedSwipe(){
     }
 
     container.addEventListener("touchstart", onStart, {passive:true});
-    container.addEventListener("touchmove", onMove, {passive:true});
-    container.addEventListener("touchend", onEnd);
+    container.addEventListener("touchmove", onMove, {passive:false});
+    container.addEventListener("touchend", onEnd, {passive:true});
   });
 }
 </script>
