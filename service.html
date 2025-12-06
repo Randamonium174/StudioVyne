@@ -74,7 +74,7 @@ a{text-decoration:none;color:inherit;}
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-/* Desktop nav links */
+/* UNDERLINE */
 nav.primary{
   display:flex;gap:34px;align-items:center;
   position:relative;
@@ -88,8 +88,6 @@ nav.primary a:hover{
   transform:translateY(-3px);
   opacity:.9;
 }
-
-/* UNDERLINE */
 .underline-bar{
   position:absolute;bottom:-10px;
   height:4px;width:0;left:0;
@@ -99,11 +97,7 @@ nav.primary a:hover{
 }
 
 /* HAMBURGER */
-.menu-btn{
-  width:34px;height:34px;display:none;
-  align-items:center;justify-content:center;
-  cursor:pointer;position:relative;
-}
+.menu-btn{width:34px;height:34px;display:none;align-items:center;justify-content:center;cursor:pointer;position:relative;}
 .menu-line{
   position:absolute;width:28px;height:3px;
   background:#111;border-radius:3px;transition:.28s ease;
@@ -113,7 +107,7 @@ nav.primary a:hover{
 .menu-btn.active .menu-line:nth-child(1){transform:rotate(45deg)}
 .menu-btn.active .menu-line:nth-child(2){transform:rotate(-45deg)}
 
-/* DROPDOWN MOBILE */
+/* DROPDOWN */
 .nav-dropdown{
   position:absolute;top:85px;left:50%;transform:translateX(-50%);
   width:92%;
@@ -134,7 +128,7 @@ nav.primary a:hover{
 
 /* HERO */
 .hero{
-  padding-top:140px;text-align:center;padding-bottom:20px;
+  padding-top:140px;text-align:center;padding-bottom:40px;
 }
 .hero h1{
   font-family:'Space Grotesk';font-weight:800;
@@ -144,6 +138,39 @@ nav.primary a:hover{
 }
 .hero p{
   color:var(--muted);font-size:1.02rem;margin-top:10px;
+}
+
+/* BIG, BOLD GRADIENT LINE */
+.hero .preline{
+  margin-top:32px;
+  font-family:'Space Grotesk';
+  font-size:clamp(1.3rem, 2.4vw, 1.9rem);
+  font-weight:800;
+  line-height:1.3;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:26px;
+}
+
+/* HERO BUTTON */
+.hero-btn{
+  padding:14px 28px;
+  border-radius:50px;
+  border:2px solid rgba(255,255,255,0.85);
+  background:transparent;
+  font-weight:700;
+  color:white;
+  font-size:1rem;
+  transition:0.35s ease;
+  cursor:pointer;
+}
+.hero-btn:hover{
+  background:var(--accent-grad);
+  border-color:transparent;
+  color:white;
+  transform:translateY(-3px);
+  box-shadow:0 8px 26px rgba(255,100,150,0.4);
 }
 
 /* TILE */
@@ -156,7 +183,6 @@ nav.primary a:hover{
 }
 .tile-media{
   height:var(--banner-height);
-  border-radius:var(--tile-radius) var(--tile-radius) 0 0;
   display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;text-align:center;
 }
@@ -176,67 +202,49 @@ nav.primary a:hover{
 
 /* SUBCARDS */
 .subgrid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
-  margin-bottom:90px;  /* <<< FIXED SPACING FOR ALL SECTIONS */
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:90px;
 }
 .subcard{
-  background:var(--subcard-bg);border-radius:12px;
-  padding:12px;display:flex;flex-direction:column;gap:10px;
+  background:var(--subcard-bg);border-radius:12px;padding:12px;
+  display:flex;flex-direction:column;gap:10px;
   box-shadow:0 8px 28px rgba(10,10,10,0.04);
   transition:.28s ease;
 }
 .subcard:hover{transform:translateY(-6px)}
 .sub-image{
-  width:100%;
-  height:160px;        /* <<< FIXED SMALLER HEIGHT */
-  border-radius:12px;
-  overflow:hidden;
+  width:100%;height:160px;border-radius:12px;overflow:hidden;
+}
+.sub-image img{width:100%;height:100%;object-fit:cover;transition:.7s;}
+.subcard:hover img{transform:scale(1.05);}
+
+/* CENTERED TEXT IN CARDS */
+.sub-title{
+  font-family:'Space Grotesk';
+  font-weight:800;
+  font-size:1.05rem;
+  text-align:center;
+}
+.sub-desc{
+  color:var(--muted);
+  font-size:.95rem;
+  text-align:center;
 }
 
-.sub-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;    /* keeps it neat and contained */
-  transition:.7s;
-}
-
-.subcard:hover img{transform:scale(1.05)}
-.sub-title{font-family:'Space Grotesk';font-weight:800;font-size:1.05rem}
-.sub-desc{color:var(--muted);font-size:.95rem}
+/* FOOTER LINKS CENTERED */
 .sub-footer{
-  display:flex;justify-content:space-between;align-items:center;margin-top:auto;
+  margin-top:auto;
+  text-align:center;
 }
-
-/* BUTTON */
-.btn-outline{
-  border:2px solid transparent;
-  padding:8px 14px;border-radius:12px;
-  background:linear-gradient(var(--champagne),var(--champagne)) padding-box,
-             var(--accent-grad) border-box;
-  cursor:pointer;transition:.35s ease;
-  position:relative;overflow:hidden;
-}
-.btn-outline .label{
-  background:var(--accent-grad);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  font-weight:700;z-index:2;position:relative;
-}
-.btn-outline::before{
-  content:"";position:absolute;inset:0;
-  background:var(--accent-grad);opacity:0;
-  transition:.35s ease;border-radius:12px;
-}
-.btn-outline:hover::before{opacity:1}
-.btn-outline:hover .label{-webkit-text-fill-color:white}
-
 .arrow-link{
-  display:flex;align-items:center;gap:6px;font-weight:800;
-  color:#444;transition:.3s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:800;
+  color:#444;
+  transition:.3s ease;
 }
-.arrow-link:hover{transform:translateX(6px)}
-
-.tile-buttons{
-  display:flex;justify-content:center;gap:14px;margin-top:12px;
+.arrow-link:hover{
+  transform:translateX(6px);
 }
 
 /* RESPONSIVE */
@@ -292,6 +300,13 @@ nav.primary a:hover{
   <div class="container">
     <h1>What We Offer</h1>
     <p>Clean, strategic, and crafted visuals — built for clarity, connection, and conversion.</p>
+
+    <div class="preline">See what we create — then decide if we're the right fit.</div>
+
+    <button class="hero-btn" onclick="location.href='enquire.html'">
+      Enquire Services
+    </button>
+
   </div>
 </section>
 
@@ -302,7 +317,7 @@ nav.primary a:hover{
 
   <div class="tile reveal">
     <div class="tile-media">
-      <img src="https://images.unsplash.com/photo-1632187981988-40f3cbaeef5e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZmlsbSUyMHByb2R1Y3Rpb258ZW58MHx8MHx8fDA%3D">
+      <img src="https://images.unsplash.com/photo-1632187981988-40f3cbaeef5e">
       <div class="tile-title">On-Site Production</div>
     </div>
   </div>
@@ -310,42 +325,38 @@ nav.primary a:hover{
   <div class="subgrid">
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1726869694722-66df5f9621b8?q=80&w=1558&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1726869694722-66df5f9621b8"></div>
       <div class="sub-title">Product Shoot</div>
       <div class="sub-desc">Studio and lifestyle shoots displaying product features.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1682097071308-f91ccf64cbd3?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1682097071308-f91ccf64cbd3"></div>
       <div class="sub-title">Interview Shoot</div>
       <div class="sub-desc">On-location interviews with cinematic lighting.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1763674561330-5f87d703ea0e?q=80&w=1450&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1763674561330-5f87d703ea0e"></div>
       <div class="sub-title">Vox-Pop Shoots</div>
       <div class="sub-desc">Fast-paced street interviews shot with clarity.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1630979683988-cf84aaad8ab0?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1630979683988-cf84aaad8ab0"></div>
       <div class="sub-title">Brand Film Shoots</div>
       <div class="sub-desc">Narrative-driven storytelling for impactful visuals.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
@@ -361,7 +372,7 @@ nav.primary a:hover{
 
   <div class="tile reveal">
     <div class="tile-media">
-      <img src="https://images.unsplash.com/photo-1579109652910-99b9be06aaec?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+      <img src="https://images.unsplash.com/photo-1579109652910-99b9be06aaec">
       <div class="tile-title">Post-Production</div>
     </div>
   </div>
@@ -373,38 +384,34 @@ nav.primary a:hover{
       <div class="sub-title">Short-Form Editing</div>
       <div class="sub-desc">Quick edits for reels and modern platforms.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1528109966604-5a6a4a964e8d?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1528109966604-5a6a4a964e8d"></div>
       <div class="sub-title">Long-Form Editing</div>
       <div class="sub-desc">Engaging YouTube & documentary storytelling.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://images.unsplash.com/photo-1621600411688-4be93cd68504?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://images.unsplash.com/photo-1621600411688-4be93cd68504"></div>
       <div class="sub-title">Ad Edits</div>
       <div class="sub-desc">Conversion-optimized fast-paced ads.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
     <article class="subcard reveal">
-      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1684341008757-3b456034e943?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+      <div class="sub-image"><img src="https://plus.unsplash.com/premium_photo-1684341008757-3b456034e943"></div>
       <div class="sub-title">Social Media Presence</div>
       <div class="sub-desc">Brand-consistent content systems.</div>
       <div class="sub-footer">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">Our Works →</a>
+        <a class="arrow-link" href="our-works.html">Our Works →</a>
       </div>
     </article>
 
@@ -414,7 +421,7 @@ nav.primary a:hover{
 </section>
 
 
-<!-- WEBSITE -->
+<!-- WEBSITE DEVELOPMENT -->
 <section id="web">
 <div class="container">
 
@@ -425,11 +432,8 @@ nav.primary a:hover{
     </div>
 
     <div class="tile-body">
-      <div class="tile-buttons">
-        <button class="btn-outline"><span class="label">Request Service</span></button>
-        <a class="arrow-link" href="#work">
-          Our Works →
-        </a>
+      <div class="sub-footer">
+        <a class="arrow-link" href="web.html">Our Works →</a>
       </div>
     </div>
 
@@ -451,9 +455,7 @@ gsap.registerPlugin(ScrollTrigger);
 /* REVEAL */
 gsap.utils.toArray('.reveal').forEach((el,i)=>{
   gsap.fromTo(el,{y:20,opacity:0},{
-    y:0,opacity:1,
-    delay:.05*i,
-    duration:.7,
+    y:0,opacity:1,delay:.05*i,duration:.7,
     scrollTrigger:{trigger:el,start:"top 85%",once:true}
   });
 });
