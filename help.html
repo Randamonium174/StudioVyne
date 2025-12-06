@@ -236,7 +236,7 @@ main{padding-top:calc(var(--nav-h) + 40px)}
 }
 .card:hover .media img{transform:scale(1.06)}
 
-.body{padding:20px}
+.body{padding:22px 22px 26px}
 .title-sub{
   font-family:'Space Grotesk';
   font-weight:800;
@@ -244,9 +244,13 @@ main{padding-top:calc(var(--nav-h) + 40px)}
   background:var(--accent);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  margin-bottom:8px
+  margin-bottom:10px
 }
-.kicker{font-size:.96rem;line-height:1.6;opacity:.95}
+.kicker{
+  font-size:.98rem;
+  line-height:1.8;
+  opacity:.96;
+}
 
 /* MOBILE */
 @media (max-width:780px){
@@ -275,8 +279,8 @@ main{padding-top:calc(var(--nav-h) + 40px)}
     position:absolute;
     left:50%;
     top:0;
-    width:80%;
-    max-width:320px;
+    width:86%;
+    max-width:360px;
     min-width:0;
     margin:0;
     border-radius:16px;
@@ -284,11 +288,11 @@ main{padding-top:calc(var(--nav-h) + 40px)}
     opacity:1; /* JS will control real opacity */
     transform-origin:center center;
     transform-style:preserve-3d;
-    transition:transform .4s cubic-bezier(.22,.9,.28,1),opacity .3s ease;
+    transition:opacity .3s ease; /* transforms handled by GSAP for smoother swipe */
   }
 
   .media{
-    height:200px;
+    height:220px;
     aspect-ratio:auto;
     padding:0;
     background: rgba(0,0,0,0.55);
@@ -301,7 +305,7 @@ main{padding-top:calc(var(--nav-h) + 40px)}
     border-radius:14px;
   }
 
-  .body{padding:14px 14px 18px}
+  .body{padding:16px 16px 22px}
   .title-sub{font-size:1.05rem}
   .kicker{font-size:.95rem}
 
@@ -341,7 +345,7 @@ footer{
     </div>
 
     <nav class="primary">
-      <a href="landing.html">HOME</a>
+      <a href="index.html">HOME</a>
       <a href="service.html">SERVICES</a>
       <a href="contact.html">CONTACT</a>
     </nav>
@@ -353,8 +357,8 @@ footer{
 
     <div class="nav-dropdown" id="navDropdown" aria-hidden="true" role="menu">
       <div class="nav-links">
-        <a href="landing.html" class="drop-link">HOME</a>
-        <a href="service.html">SERVICES</a>
+        <a href="index.html" class="drop-link">HOME</a>
+        <a href="service.html" class="drop-link">SERVICES</a>
         <a href="contact.html" class="drop-link">CONTACT</a>
       </div>
     </div>
@@ -381,7 +385,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1757553358799-900b78f19844?auto=format&fit=crop&w=1740&q=80" alt="Discovery & Research"></div>
       <div class="body">
         <div class="title-sub">Discovery & Research</div>
-        <div class="kicker">In-depth research to uncover the right opportunities and insights.</div>
+        <div class="kicker">
+          We map your audience, competitors and current touchpoints so we know exactly where attention is leaking and where the real opportunities sit. This becomes a clear foundation before any pixels or words are created.
+        </div>
       </div>
     </article>
 
@@ -389,7 +395,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1758873272414-c0bf30332738?auto=format&fit=crop&w=2064&q=80" alt="Creative Strategy"></div>
       <div class="body">
         <div class="title-sub">Creative Strategy</div>
-        <div class="kicker">Aligning business goals with human-centered concepts and visuals.</div>
+        <div class="kicker">
+          We turn research into a simple story: who you are, what you stand for, and how that shows up visually. Every layout, motion idea and line of copy is tied back to a strategic direction instead of random aesthetics.
+        </div>
       </div>
     </article>
 
@@ -397,7 +405,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Execution Excellence"></div>
       <div class="body">
         <div class="title-sub">Execution Excellence</div>
-        <div class="kicker">Precise craft across design, motion, and production pipelines.</div>
+        <div class="kicker">
+          From typography and grids to motion timings and export settings, we obsess over the details. The result is work that feels sharp, stable and ready to live across your launch campaigns and future phases.
+        </div>
       </div>
     </article>
   </div>
@@ -415,7 +425,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=1400&q=80" alt="Brand Identity"></div>
       <div class="body">
         <div class="title-sub">Brand Identity</div>
-        <div class="kicker">Design systems, marks and visual language that feel original.</div>
+        <div class="kicker">
+          We design visual identities that feel ownable: wordmarks, symbols, palettes and type systems that actually make sense for your story. So you don’t just look “nice” — you look like yourself at your best.
+        </div>
       </div>
     </article>
 
@@ -423,7 +435,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1663091696773-ae012087b421?auto=format&fit=crop&w=1740&q=80" alt="Digital Experience"></div>
       <div class="body">
         <div class="title-sub">Digital Experience</div>
-        <div class="kicker">Interfaces and product flows that are intuitive and memorable.</div>
+        <div class="kicker">
+          We think through how people actually move through your site or product. Clear flows, focused interactions and motion cues help them find what matters faster, with less friction and more confidence.
+        </div>
       </div>
     </article>
 
@@ -431,7 +445,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1400&q=80" alt="Visual Design"></div>
       <div class="body">
         <div class="title-sub">Visual Design</div>
-        <div class="kicker">Art direction and imagery that sharpen your message.</div>
+        <div class="kicker">
+          We craft layouts, imagery and compositions that feel modern but still human. Every visual choice supports the message — from contrast and rhythm to how your work is showcased on different screens.
+        </div>
       </div>
     </article>
 
@@ -439,7 +455,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1723489254801-ebec5f249c05?auto=format&fit=crop&w=1160&q=80" alt="Motion & Storytelling"></div>
       <div class="body">
         <div class="title-sub">Motion & Storytelling</div>
-        <div class="kicker">Sequencing, loops and transitions that amplify brand emotion.</div>
+        <div class="kicker">
+          We use motion to guide attention and emotion — not just to add noise. Subtle transitions, loops and story beats help people understand who you are and remember how your brand made them feel.
+        </div>
       </div>
     </article>
   </div>
@@ -457,7 +475,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80" alt="Engagement"></div>
       <div class="body">
         <div class="title-sub">Engagement</div>
-        <div class="kicker">Design that invites attention and keeps people listening.</div>
+        <div class="kicker">
+          We design with attention in mind: bold hierarchy, considered motion and a clear path through the page. That means more people pause, interact and stay with your story for longer.
+        </div>
       </div>
     </article>
 
@@ -465,7 +485,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1706193589333-da530df63ecf?auto=format&fit=crop&w=1740&q=80" alt="Recognition"></div>
       <div class="body">
         <div class="title-sub">Recognition</div>
-        <div class="kicker">Visual systems that make your brand easier to recall.</div>
+        <div class="kicker">
+          When visuals, tone and motion stay consistent, people start recognising you faster. We build systems so your brand feels the same across website, socials, decks and campaigns.
+        </div>
       </div>
     </article>
 
@@ -473,7 +495,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1693166985133-8a849aa237de?auto=format&fit=crop&w=2064&q=80" alt="Emotional Impact"></div>
       <div class="body">
         <div class="title-sub">Emotional Impact</div>
-        <div class="kicker">Story-led visuals that move people and create loyalty.</div>
+        <div class="kicker">
+          Good design isn’t just clear — it’s felt. We focus on the small emotional beats: how a headline lands, how a scroll sequence reveals work, how motion reinforces the mood of your brand.
+        </div>
       </div>
     </article>
   </div>
@@ -491,7 +515,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1672759362274-bb02b3645cb8?auto=format&fit=crop&w=1857&q=80" alt="Creative Launch"></div>
       <div class="body">
         <div class="title-sub">Creative Launch</div>
-        <div class="kicker">A structured rollout that introduces your new identity with momentum.</div>
+        <div class="kicker">
+          We help you roll out your new identity with intent — from launch pages and hero visuals to announcement assets. So your audience experiences a clear “before and after” moment, not a quiet update.
+        </div>
       </div>
     </article>
 
@@ -499,7 +525,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80" alt="Digital Growth"></div>
       <div class="body">
         <div class="title-sub">Digital Growth</div>
-        <div class="kicker">Measured digital improvements that help your audience find and trust you.</div>
+        <div class="kicker">
+          With better UX, clearer messaging and stronger visuals, your digital touchpoints become easier to find and easier to trust. Over time, this compounds into more leads, better clients and stronger momentum.
+        </div>
       </div>
     </article>
 
@@ -507,7 +535,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1563674881-8abcee2b556a?auto=format&fit=crop&w=1740&q=80" alt="Visual Legacy"></div>
       <div class="body">
         <div class="title-sub">Visual Legacy</div>
-        <div class="kicker">A lasting visual system that scales across channels.</div>
+        <div class="kicker">
+          We create systems you can actually reuse — not one-off designs that die after launch. Your team has a library of components, layouts and motion rules that can travel with you as you grow.
+        </div>
       </div>
     </article>
   </div>
@@ -525,7 +555,9 @@ footer{
       <div class="media"><img src="https://plus.unsplash.com/premium_photo-1683133556035-403d392ef900?auto=format&fit=crop&w=1740&q=80" alt="Personalised"></div>
       <div class="body">
         <div class="title-sub">Personalised</div>
-        <div class="kicker">Made-for-you starter pack: brand mark, colors, and tone essentials.</div>
+        <div class="kicker">
+          A compact starter pack for founders who need a clear visual direction fast — including a core mark, colour story and basic layout rules to show up with more intent across socials and decks.
+        </div>
       </div>
     </article>
 
@@ -533,7 +565,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?auto=format&fit=crop&w=1400&q=80" alt="Curated"></div>
       <div class="body">
         <div class="title-sub">Curated</div>
-        <div class="kicker">A refined set of visuals and a concise style system for multi-channel use.</div>
+        <div class="kicker">
+          For teams ready to refine their presence: a tighter system of type, grids, imagery and key templates that keep your brand consistent across multiple channels without feeling repetitive.
+        </div>
       </div>
     </article>
 
@@ -541,7 +575,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80" alt="Essence"></div>
       <div class="body">
         <div class="title-sub">Essence</div>
-        <div class="kicker">Complete visual identity including assets, templates, and motion guidelines.</div>
+        <div class="kicker">
+          A full identity system — including visual language, component library, motion guidelines and launch touchpoints — built to support bigger campaigns and multi-channel storytelling.
+        </div>
       </div>
     </article>
 
@@ -549,7 +585,9 @@ footer{
       <div class="media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80" alt="Vyne Signature"></div>
       <div class="body">
         <div class="title-sub">Vyne Signature</div>
-        <div class="kicker">Ongoing partnership: campaigns, growth creative, and continuous refinement.</div>
+        <div class="kicker">
+          A deeper, ongoing partnership where we act as your design and motion team — shaping campaigns, testing ideas and continuously refining how your brand shows up as you grow.
+        </div>
       </div>
     </article>
   </div>
@@ -689,7 +727,7 @@ ham.addEventListener('keydown', e=>{
 /* ===========================
    3D STACKED SWIPE (MOBILE)
    Option B — all cards visible, stack shifts left/right
-   With A-behaviour: allow vertical scroll, block horizontal page move
+   Smooth / slower swipe using GSAP lerp
    =========================== */
 if(isMobile){
   setupStackedSwipe();
@@ -713,23 +751,25 @@ function setupStackedSwipe(){
     });
 
     let centerIndex = Math.floor(cards.length / 2);
+    let animating = false;
 
-    function updateStack(){
+    function updateStack(baseCenter){
+      const base = (typeof baseCenter === "number") ? baseCenter : centerIndex;
       let maxHeight = 0;
 
       cards.forEach((card, i) => {
-        const offset = i - centerIndex;          // negative = left, positive = right
+        const offset = i - base;               // can be fractional during animation
         const absOffset = Math.abs(offset);
 
-        const translateX = offset * 26;          // horizontal spread
-        const translateY = absOffset * 6;        // slight drop for depth
-        const translateZ = -absOffset * 40;      // push back in Z
-        const rotateY   = offset * -8;          // rotate towards user
-        const scale     = 1 - absOffset * 0.04; // slightly smaller in the back
+        const translateX = offset * 26;        // horizontal spread
+        const translateY = absOffset * 8;      // slight drop for depth
+        const translateZ = -absOffset * 50;    // push back in Z
+        const rotateY   = offset * -9;        // rotate towards user
+        const scale     = 1 - absOffset * 0.05;
 
-        const visible = absOffset <= 3;         // hide very far ones on big stacks
+        const visible = absOffset <= 3.5;
 
-        card.style.zIndex = (cards.length - absOffset).toString();
+        card.style.zIndex = (cards.length - Math.round(absOffset)).toString();
         card.style.opacity = visible ? "1" : "0";
         card.style.transform =
           "translate(-50%,0) " +
@@ -744,7 +784,7 @@ function setupStackedSwipe(){
       });
 
       if(maxHeight > 0){
-        container.style.height = (maxHeight + 32) + "px";
+        container.style.height = (maxHeight + 40) + "px";
       }
     }
 
@@ -764,7 +804,32 @@ function setupStackedSwipe(){
     let deltaX = 0;
     let isDragging = false;
 
+    function animateToIndex(targetIndex){
+      if(animating) return;
+      animating = true;
+
+      const from = centerIndex;
+      const to = targetIndex;
+      const obj = {p:0};
+
+      gsap.to(obj,{
+        p:1,
+        duration:0.55,
+        ease:"power3.out",
+        onUpdate:()=>{
+          const currentCenter = from + (to - from) * obj.p;
+          updateStack(currentCenter);
+        },
+        onComplete:()=>{
+          centerIndex = to;
+          updateStack();
+          animating = false;
+        }
+      });
+    }
+
     function onStart(e){
+      if(animating) return;
       if(!e.touches || e.touches.length === 0) return;
       isDragging = true;
       startX = e.touches[0].clientX;
@@ -772,7 +837,7 @@ function setupStackedSwipe(){
     }
 
     function onMove(e){
-      if(!isDragging) return;
+      if(!isDragging || animating) return;
       if(!e.touches || e.touches.length === 0) return;
 
       const touch = e.touches[0];
@@ -785,19 +850,17 @@ function setupStackedSwipe(){
     }
 
     function onEnd(){
-      if(!isDragging) return;
+      if(!isDragging || animating) return;
       isDragging = false;
 
       const threshold = 50; // swipe sensitivity
       if(Math.abs(deltaX) > threshold){
         if(deltaX < 0 && centerIndex < cards.length - 1){
-          // swipe left → move stack to show next card on the right
-          centerIndex++;
-          updateStack();
+          // swipe left → move stack forward
+          animateToIndex(centerIndex + 1);
         }else if(deltaX > 0 && centerIndex > 0){
-          // swipe right → move stack back
-          centerIndex--;
-          updateStack();
+          // swipe right → move stack backward
+          animateToIndex(centerIndex - 1);
         }
       }
 
