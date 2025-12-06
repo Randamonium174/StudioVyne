@@ -46,7 +46,7 @@ body{
 @media (max-width:780px){
   body{
     background-image:url("https://images.unsplash.com/photo-1668624384628-38c90f9e5783?q=80&w=654&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-attachment:scroll;
+    background-attachment:scroll !important; /* critical for performance */
   }
 }
 
@@ -302,7 +302,7 @@ main{padding-top:calc(var(--nav-h) + 40px)}
     margin:0;
     border-radius:16px;
     transform:none;
-    opacity:1; /* JS will control real opacity */
+    opacity:1; /* JS + layout control */
     transform-origin:center center;
     transform-style:preserve-3d;
     transition:opacity .3s ease; /* transforms handled by GSAP for smoother swipe */
@@ -349,7 +349,7 @@ footer{
   text-shadow:0 0 8px rgba(0,0,0,0.65);
 }
 
-/* --- MOBILE FIX FOR GRADIENT TEXT NOT SHOWING --- */
+/* --- MOBILE FIX FOR GRADIENT TEXT RENDER & DELAY --- */
 @media (max-width:780px){
 
   /* make sure all key text is visible immediately */
@@ -362,7 +362,7 @@ footer{
     transform:none !important;
   }
 
-  /* ensure gradient clip renders on iOS */
+  /* ensure gradient clip renders on iOS, but keep gradient */
   .hero h1,
   .title,
   .title-sub{
@@ -371,7 +371,7 @@ footer{
     background-clip:text !important;
   }
 
-  /* help Safari with heavy filters */
+  /* help Safari with heavy compositing */
   body{
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
@@ -682,21 +682,36 @@ gsap.registerPlugin(ScrollTrigger);
 
 const isMobile = window.innerWidth <= 780;
 
-/* Titles + desc */
-gsap.utils.toArray(".section").forEach(section=>{
-  const t = section.querySelector(".title");
-  const d = section.querySelector(".desc");
-  if(!t || !d) return;
-  gsap.timeline({
-    scrollTrigger:{
-      trigger:section,
-      start:"top 80%",
-      once:true
-    }
-  })
-  .to(t,{y:0,opacity:1,duration:.7,ease:"power3.out"})
-  .to(d,{y:0,opacity:1,duration:.7,ease:"power3.out"},"-=.45");
-});
+/* On mobile: show text immediately and skip GSAP text fade/slide */
+if (isMobile) {
+  // Force visibility + remove transforms for key text
+  setTimeout(() => {
+    document.querySelectorAll('.title, .title-sub, .hero h1, .hero p, .desc').forEach(el => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      // force repaint to avoid Safari delaying gradient text
+      void el.offsetHeight;
+    });
+  }, 50);
+}
+
+/* Titles + desc animations (DESKTOP ONLY) */
+if (!isMobile) {
+  gsap.utils.toArray(".section").forEach(section=>{
+    const t = section.querySelector(".title");
+    const d = section.querySelector(".desc");
+    if(!t || !d) return;
+    gsap.timeline({
+      scrollTrigger:{
+        trigger:section,
+        start:"top 80%",
+        once:true
+      }
+    })
+    .to(t,{y:0,opacity:1,duration:.7,ease:"power3.out"})
+    .to(d,{y:0,opacity:1,duration:.7,ease:"power3.out"},"-=.45");
+  });
+}
 
 /* Card entrance (DESKTOP ONLY) */
 if(!isMobile){
@@ -948,15 +963,6 @@ function setupStackedSwipe(){
     container.addEventListener("touchstart", onStart, {passive:true});
     container.addEventListener("touchmove", onMove, {passive:false});
     container.addEventListener("touchend", onEnd, {passive:true});
-  });
-}
-
-/* --- iOS fallback: force repaint for gradient text on mobile --- */
-if(isMobile){
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.title, .title-sub, .hero h1, .hero p, .desc').forEach(el => {
-      const _ = el.offsetHeight; // force layout/repaint
-    });
   });
 }
 </script>
